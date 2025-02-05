@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>编程规范 &mdash; PREMIC Guide  文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/main.css?v=55f5f21d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7d86a446"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="教程导览" href="Tutorial.html" />
+    <link rel="prev" title="Python教程" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PREMIC Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Basic/index.html">基本指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article.html">文献查找与下载</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Python教程</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">编程规范</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ruff">辅助插件（Ruff）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html">教程导览</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../LaTeX/index.html">LaTeX</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PREMIC Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Python教程</a></li>
+      <li class="breadcrumb-item active">编程规范</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Python/PEP8.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>编程规范<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="https://peps.python.org/pep-0008">PEP 8</a>（Python Enhancement Proposal 8）给出了书写Python时所建议的风格指南。</p>
+<p>PEP 8不是强制性的要求，即使是CPython的源码也并非始终遵循该规范，但了解并使用PEP 8能在一定程度上提高代码的可读性与一致性，同时减少阅读他人（如果对方也遵守了PEP 8）或过去自己所写代码时的额外思维开销。</p>
+<section id="id2">
+<h2>示例<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>缩进：</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span> <span class="o">=</span> <span class="n">long_function_name</span><span class="p">(</span><span class="n">var_one</span><span class="p">,</span> <span class="n">var_two</span><span class="p">,</span>
+                         <span class="n">var_three</span><span class="p">,</span> <span class="n">var_four</span><span class="p">)</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">long_function_name</span><span class="p">(</span>
+    <span class="n">var_one</span><span class="p">,</span> <span class="n">var_two</span><span class="p">,</span>
+    <span class="n">var_three</span><span class="p">,</span> <span class="n">var_four</span><span class="p">)</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">long_function_name</span><span class="p">(</span>
+    <span class="n">var_one</span><span class="p">,</span> <span class="n">var_two</span><span class="p">,</span>
+    <span class="n">var_three</span><span class="p">,</span> <span class="n">var_four</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># 定义长字符串时可以使用的一个小技巧</span>
+<span class="c1"># 此时loog_str = &quot;abcabc&quot;</span>
+<span class="n">loog_str</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;abc&quot;</span>
+    <span class="s2">&quot;abc&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span></code>：<code class="docutils literal notranslate"><span class="pre">import</span></code>语句应当分类分块（依次为<a class="reference external" href="https://docs.python.org/zh-cn/3.11/library/index.html">标准库</a>、第三方库，本地库）放在文件顶部，各个代码块内按照字典顺序进行排序，并且先<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">...</span></code>再<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">...</span> <span class="pre">import</span> <span class="pre">...</span></code>（下例中的<code class="docutils literal notranslate"><span class="pre">mymodule</span></code>指代本地库，即自己写的<code class="docutils literal notranslate"><span class="pre">mymodule.py</span></code>文件）：</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">netCDF4</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">mymodule</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.bilibili.com/video/BV1RT411G73z">命名</a>：</p>
+<ul>
+<li><p>驼峰命名法（<code class="docutils literal notranslate"><span class="pre">CamelCase</span></code>）：类；</p></li>
+<li><p>大写下划线（<code class="docutils literal notranslate"><span class="pre">UPPER_UNDERSCORE</span></code>）：常量；</p></li>
+<li><p>小写下划线（<code class="docutils literal notranslate"><span class="pre">lower_underscore</span></code>）：函数、变量。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="ruff">
+<h2>辅助插件（Ruff）<a class="headerlink" href="#ruff" title="Link to this heading"></a></h2>
+<p>Ruff插件会实时提示不规范的代码，同时也能够一键格式化代码块。</p>
+<p>安装后可以在键盘快捷方式处搜索关键词Ruff，设置<code class="docutils literal notranslate"><span class="pre">Fix</span> <span class="pre">all</span> <span class="pre">auto-fixable</span> <span class="pre">problems</span></code>、<code class="docutils literal notranslate"><span class="pre">Format</span> <span class="pre">document</span></code>、<code class="docutils literal notranslate"><span class="pre">Format</span> <span class="pre">imports</span></code>的快捷键。</p>
+<p>配置文件中有关Ruff的设置，供参考：</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// 指定默认的格式化插件</span>
+<span class="w">    </span><span class="nt">&quot;[python]&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;editor.defaultFormatter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;charliermarsh.ruff&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="c1">// 单行字符数量的上限</span>
+<span class="w">    </span><span class="nt">&quot;ruff.lineLength&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">79</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 使用扩展规则的ruff</span>
+<span class="w">    </span><span class="nt">&quot;ruff.lint.extendSelect&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;ALL&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="c1">// 忽略指定规则</span>
+<span class="w">    </span><span class="c1">// 详见https://docs.astral.sh/ruff/rules</span>
+<span class="w">    </span><span class="nt">&quot;ruff.lint.ignore&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;RUF001&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;RUF002&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;RUF003&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;T20&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;NPY201&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;ruff.codeAction.disableRuleComment&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;enable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">},</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="index.html" class="btn btn-neutral float-left" title="Python教程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="Tutorial.html" class="btn btn-neutral float-right" title="教程导览" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, XiaAnren。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

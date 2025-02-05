@@ -9,6 +9,7 @@
   <title>模板 &mdash; PREMIC Guide  文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/main.css?v=55f5f21d" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -51,6 +52,7 @@
 <li class="toctree-l2"><a class="reference internal" href="01_Setup.html">下载与安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02_Usage.html">使用</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">模板</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">课程模板</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#article">article模板及使用例</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#beamer">beamer模板及使用例</a></li>
 </ul>
@@ -87,13 +89,20 @@
              
   <section id="id1">
 <h1>模板<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="id2">
+<h2>课程模板<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>文件位于<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/share/LaTeX/课程报告模板.20250206.zip</span></code>。</p>
+<p>包含封面、目录、正文标题、中英文摘要、图表、参考文献（支持作者年份与角标两种引用格式）。</p>
+<p>详见其中<code class="docutils literal notranslate"><span class="pre">README.md</span></code>的说明以及<code class="docutils literal notranslate"><span class="pre">.pdf</span></code>的具体效果。</p>
+</section>
 <section id="article">
 <h2>article模板及使用例<a class="headerlink" href="#article" title="Link to this heading"></a></h2>
-<p>以大气辐射学第三次作业为例，文件为<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/share/LaTeX/article.template.20241124.zip</span></code>。</p>
-<p>其中（<code class="docutils literal notranslate"><span class="pre">figures/</span></code>、<code class="docutils literal notranslate"><span class="pre">GBT2015.bst</span></code>、<code class="docutils literal notranslate"><span class="pre">main.sty</span></code>、<code class="docutils literal notranslate"><span class="pre">references.bib</span></code>可以改成其他文件名，改名后<code class="docutils literal notranslate"><span class="pre">.tex</span></code>内记得对应修改就行；<code class="docutils literal notranslate"><span class="pre">main.tex</span></code>可随意取名）：</p>
+<p>以大气辐射学第三次作业为例。</p>
+<p>文件位于<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/share/LaTeX/article.template.20241124.zip</span></code>。</p>
+<p>其中（<code class="docutils literal notranslate"><span class="pre">figures/</span></code>、<code class="docutils literal notranslate"><span class="pre">GBT2015.bst</span></code>、<code class="docutils literal notranslate"><span class="pre">main.sty</span></code>、<code class="docutils literal notranslate"><span class="pre">references.bib</span></code>可以改成其他文件名，改名后<code class="docutils literal notranslate"><span class="pre">.tex</span></code>内记得作对应修改；<code class="docutils literal notranslate"><span class="pre">main.tex</span></code>可随意取名）：</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">figures/</span></code>存放可能会使用的图片文件；</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">GBT2015.bst</span></code>是国标引用模板文件，可以同时引用中英文文献（不用动，或者下载其他引用格式的<code class="docutils literal notranslate"><span class="pre">.bst</span></code>文件也行）；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GBT2015.bst</span></code>是国标引用模板文件，可以同时引用中英文文献（不用动，但也可以下载使用其他引用格式的<code class="docutils literal notranslate"><span class="pre">.bst</span></code>文件）；</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">main.bbl</span></code>是编译产生的中间文件，存放了文献引用信息（不用管，但删了也没影响）；</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">main.pdf</span></code>是编译完成后生成<code class="docutils literal notranslate"><span class="pre">.pdf</span></code>文件；</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">main.sty</span></code>是模板，里面有页面大小、宏包等设置（编译时模板不是必需的，在<code class="docutils literal notranslate"><span class="pre">.tex</span></code>最上面设置页面大小、引用<strong>所需要的</strong>宏包也行；后面可以按需对模板进行修改）；</p></li>
@@ -104,8 +113,9 @@
 </section>
 <section id="beamer">
 <h2>beamer模板及使用例<a class="headerlink" href="#beamer" title="Link to this heading"></a></h2>
-<p>以某次汇报为例，文件为<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/share/LaTeX/beamer.template.20241124.zip</span></code>。</p>
-<p>文件与<code class="docutils literal notranslate"><span class="pre">article.template.20241124.zip</span></code>类似，主要区别只有五个<code class="docutils literal notranslate"><span class="pre">.sty</span></code>文件是根据<code class="docutils literal notranslate"><span class="pre">thubeamer</span></code>（GitHub链接：<a class="reference external" href="https://github.com/YangLaTeX/thubeamer">https://github.com/YangLaTeX/thubeamer</a>；服务器文件位置：<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/GitHub/LaTeX/thubeamer/</span></code>）调色得到的模板。</p>
+<p>以某次汇报为例。</p>
+<p>文件位于<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/share/LaTeX/beamer.template.20241124.zip</span></code>。</p>
+<p>模板与<code class="docutils literal notranslate"><span class="pre">article.template.20241124.zip</span></code>类似，主要区别只有其中的五个<code class="docutils literal notranslate"><span class="pre">.sty</span></code>文件是根据<code class="docutils literal notranslate"><span class="pre">thubeamer</span></code>（GitHub链接：<a class="reference external" href="https://github.com/YangLaTeX/thubeamer">https://github.com/YangLaTeX/thubeamer</a>；服务器文件位置：<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/GitHub/LaTeX/thubeamer/</span></code>）调色得到的模板。</p>
 </section>
 </section>
 

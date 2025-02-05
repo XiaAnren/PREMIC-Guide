@@ -1,0 +1,143 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模板 &mdash; PREMIC Guide  文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7d86a446"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="实用小工具" href="04_Utility.html" />
+    <link rel="prev" title="使用" href="02_Usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PREMIC Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Basic/index.html">基本指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article.html">文献查找与下载</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">LaTeX</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_Setup.html">下载与安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_Usage.html">使用</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">模板</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#article">article模板及使用例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#beamer">beamer模板及使用例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="04_Utility.html">实用小工具</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PREMIC Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">LaTeX</a></li>
+      <li class="breadcrumb-item active">模板</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/LaTeX/03_Template.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>模板<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="article">
+<h2>article模板及使用例<a class="headerlink" href="#article" title="Link to this heading"></a></h2>
+<p>以大气辐射学第三次作业为例，文件为<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/share/LaTeX/article.template.20241124.zip</span></code>。</p>
+<p>其中（<code class="docutils literal notranslate"><span class="pre">figures/</span></code>、<code class="docutils literal notranslate"><span class="pre">GBT2015.bst</span></code>、<code class="docutils literal notranslate"><span class="pre">main.sty</span></code>、<code class="docutils literal notranslate"><span class="pre">references.bib</span></code>可以改成其他文件名，改名后<code class="docutils literal notranslate"><span class="pre">.tex</span></code>内记得对应修改就行；<code class="docutils literal notranslate"><span class="pre">main.tex</span></code>可随意取名）：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">figures/</span></code>存放可能会使用的图片文件；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GBT2015.bst</span></code>是国标引用模板文件，可以同时引用中英文文献（不用动，或者下载其他引用格式的<code class="docutils literal notranslate"><span class="pre">.bst</span></code>文件也行）；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.bbl</span></code>是编译产生的中间文件，存放了文献引用信息（不用管，但删了也没影响）；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.pdf</span></code>是编译完成后生成<code class="docutils literal notranslate"><span class="pre">.pdf</span></code>文件；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.sty</span></code>是模板，里面有页面大小、宏包等设置（编译时模板不是必需的，在<code class="docutils literal notranslate"><span class="pre">.tex</span></code>最上面设置页面大小、引用<strong>所需要的</strong>宏包也行；后面可以按需对模板进行修改）；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.synctex.gz</span></code>也是编译产生的，有这个文件可以实现正反向搜索功能，不要删；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.tex</span></code>是<code class="docutils literal notranslate"><span class="pre">.tex</span></code>源代码；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">references.bib</span></code>保存了可能需要引用的文献信息，如果是中文文献则需要手动加一行<code class="docutils literal notranslate"><span class="pre">key</span> <span class="pre">=</span> <span class="pre">...</span></code>标示作者的姓名拼音，用于最后参考文献部分的排序。</p></li>
+</ul>
+</section>
+<section id="beamer">
+<h2>beamer模板及使用例<a class="headerlink" href="#beamer" title="Link to this heading"></a></h2>
+<p>以某次汇报为例，文件为<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/share/LaTeX/beamer.template.20241124.zip</span></code>。</p>
+<p>文件与<code class="docutils literal notranslate"><span class="pre">article.template.20241124.zip</span></code>类似，主要区别只有五个<code class="docutils literal notranslate"><span class="pre">.sty</span></code>文件是根据<code class="docutils literal notranslate"><span class="pre">thubeamer</span></code>（GitHub链接：<a class="reference external" href="https://github.com/YangLaTeX/thubeamer">https://github.com/YangLaTeX/thubeamer</a>；服务器文件位置：<code class="docutils literal notranslate"><span class="pre">/public/home/XiaAnRen/GitHub/LaTeX/thubeamer/</span></code>）调色得到的模板。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="02_Usage.html" class="btn btn-neutral float-left" title="使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="04_Utility.html" class="btn btn-neutral float-right" title="实用小工具" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, XiaAnren。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

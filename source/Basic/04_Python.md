@@ -23,4 +23,41 @@ Anaconda3 will now be installed into this location:
 
 按照[参考链接](https://github.com/spencerahill/aospy/issues/58)中spencerkclark的回答做就行。
 
-需要补充的是：如果conda命令无效可以尝试使用pip命令。  
+需要补充的是：如果conda命令无效可以尝试使用pip命令。
+
+## matplotlib字体
+
+设置在服务器画图时，中文字体为宋体，英文字体为Times New Roman。
+
+参考链接：[字体来源](https://blog.csdn.net/Crayonxin2000/article/details/119910846)、[解决方法](https://blog.csdn.net/liu_xzhen/article/details/122881997)
+
+字体下载：<https://wwae.lanzoub.com/iKlne0t6jb3e>
+
+安装好字体后在`C:\Windows\Fonts`下找到`SunTimes.ttf`文件，将其上传到服务器（存放地址可随意，后面再细调）。
+
+```python
+import matplotlib
+
+print("字体配置文件：", matplotlib.matplotlib_fname())  # 得到mpl-data/matplotlibrc
+print("字体缓存文件：", matplotlib.get_cachedir())  # 得到.cache/matplotlib
+```
+
+将`SunTimes.ttf`复制到字体配置文件所在文件夹`mpl-data`的`fonts/tff`文件夹下。
+
+删除字体缓存文件（记得将user改为自己的用户名）：
+```shell
+$ rm -rf /public/home/user/.cache/matplotlib  
+```
+
+vim打开`matplotlibrc`，作如下修改并删除该行最前面的`#`以取消注释：
+```shell
+font.family: serif  # 默认字体族为衬线体
+...
+font.size: 10.0  # 默认字体大小，可以按需进行修改
+
+font.serif: SunTimes, DejaVu Serif, Bitstream Vera Serif, Computer Modern Roman, New Century Schoolbook, Century Schoolbook L, Utopia, ITC Bookman, Bookman, Nimbus Roman No9 L, Times New Roman, Times, Palatino, Charter, serif  # 调用serif时优先使用SunTimes
+...
+mathtext.fontset: stix  # matplotlib渲染数学字体时使用的字体，和Times New Roman差别不大
+...
+axes.unicode_minus: False  # 正常显示负号
+```

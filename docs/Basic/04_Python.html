@@ -53,6 +53,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Python</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">安装虚拟环境</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ncdumpnco">ncdump等NCO命令无效</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#matplotlib">matplotlib字体</a></li>
 </ul>
 </li>
 </ul>
@@ -60,6 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Article.html">文献查找与下载</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Python/index.html">Python教程</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LaTeX/index.html">LaTeX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../How.html">这个文档是怎么做的</a></li>
 </ul>
 
         </div>
@@ -107,6 +109,36 @@
 <h2>ncdump等NCO命令无效<a class="headerlink" href="#ncdumpnco" title="Link to this heading"></a></h2>
 <p>按照<a class="reference external" href="https://github.com/spencerahill/aospy/issues/58">参考链接</a>中spencerkclark的回答做就行。</p>
 <p>需要补充的是：如果conda命令无效可以尝试使用pip命令。</p>
+</section>
+<section id="matplotlib">
+<h2>matplotlib字体<a class="headerlink" href="#matplotlib" title="Link to this heading"></a></h2>
+<p>设置在服务器画图时，中文字体为宋体，英文字体为Times New Roman。</p>
+<p>参考链接：<a class="reference external" href="https://blog.csdn.net/Crayonxin2000/article/details/119910846">字体来源</a>、<a class="reference external" href="https://blog.csdn.net/liu_xzhen/article/details/122881997">解决方法</a></p>
+<p>字体下载：<a class="reference external" href="https://wwae.lanzoub.com/iKlne0t6jb3e">https://wwae.lanzoub.com/iKlne0t6jb3e</a></p>
+<p>安装好字体后在<code class="docutils literal notranslate"><span class="pre">C:\Windows\Fonts</span></code>下找到<code class="docutils literal notranslate"><span class="pre">SunTimes.ttf</span></code>文件，将其上传到服务器（存放地址可随意，后面再细调）。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;字体配置文件：&quot;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">matplotlib_fname</span><span class="p">())</span>  <span class="c1"># 得到mpl-data/matplotlibrc</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;字体缓存文件：&quot;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">get_cachedir</span><span class="p">())</span>  <span class="c1"># 得到.cache/matplotlib</span>
+</pre></div>
+</div>
+<p>将<code class="docutils literal notranslate"><span class="pre">SunTimes.ttf</span></code>复制到字体配置文件所在文件夹<code class="docutils literal notranslate"><span class="pre">mpl-data</span></code>的<code class="docutils literal notranslate"><span class="pre">fonts/tff</span></code>文件夹下。</p>
+<p>删除字体缓存文件（记得将user改为自己的用户名）：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/public/home/user/.cache/matplotlib<span class="w">  </span>
+</pre></div>
+</div>
+<p>vim打开<code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code>，作如下修改并删除该行最前面的<code class="docutils literal notranslate"><span class="pre">#</span></code>以取消注释：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>font.family:<span class="w"> </span>serif<span class="w">  </span><span class="c1"># 默认字体族为衬线体</span>
+...
+font.size:<span class="w"> </span><span class="m">10</span>.0<span class="w">  </span><span class="c1"># 默认字体大小，可以按需进行修改</span>
+
+font.serif:<span class="w"> </span>SunTimes,<span class="w"> </span>DejaVu<span class="w"> </span>Serif,<span class="w"> </span>Bitstream<span class="w"> </span>Vera<span class="w"> </span>Serif,<span class="w"> </span>Computer<span class="w"> </span>Modern<span class="w"> </span>Roman,<span class="w"> </span>New<span class="w"> </span>Century<span class="w"> </span>Schoolbook,<span class="w"> </span>Century<span class="w"> </span>Schoolbook<span class="w"> </span>L,<span class="w"> </span>Utopia,<span class="w"> </span>ITC<span class="w"> </span>Bookman,<span class="w"> </span>Bookman,<span class="w"> </span>Nimbus<span class="w"> </span>Roman<span class="w"> </span>No9<span class="w"> </span>L,<span class="w"> </span>Times<span class="w"> </span>New<span class="w"> </span>Roman,<span class="w"> </span>Times,<span class="w"> </span>Palatino,<span class="w"> </span>Charter,<span class="w"> </span>serif<span class="w">  </span><span class="c1"># 调用serif时优先使用SunTimes</span>
+...
+mathtext.fontset:<span class="w"> </span>stix<span class="w">  </span><span class="c1"># matplotlib渲染数学字体时使用的字体，和Times New Roman差别不大</span>
+...
+axes.unicode_minus:<span class="w"> </span>False<span class="w">  </span><span class="c1"># 正常显示负号</span>
+</pre></div>
+</div>
 </section>
 </section>
 

@@ -1,6 +1,6 @@
-# LaTeX
+# $\LaTeX$
 
-[关于LaTeX](https://www.bilibili.com/video/BV11h41127FD)
+[关于$\LaTeX$](https://www.bilibili.com/video/BV11h41127FD)
 
 ```{toctree}
 ---

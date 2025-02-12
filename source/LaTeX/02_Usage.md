@@ -106,12 +106,12 @@
 
 ## 语法
 
-LaTeX的源文件以`.tex`为结尾。
+$\LaTeX$的源文件以`.tex`为结尾。
 
-基本语法可参考最上面[关于LaTeX](https://www.bilibili.com/video/BV11h41127FD)。
+基本语法可参考最上面[关于$\LaTeX$](https://www.bilibili.com/video/BV11h41127FD)。
 
-视频里提到的《一份不太简短的LaTeX介绍》已经上传到服务器（源码在`/public/home/XiaAnRen/GitHub/LaTeX/lshort-zh-cn/`，安装`TeX Live`后可以尝试按照`README-zh.md`，运行`src/make.bat`自行编译出`.pdf`文件；编译好的`.pdf`文件在`/public/home/XiaAnRen/Reference/lshort-zh-cn.pdf`），不需要通览，可以只在遇到问题时再进行查阅。
+视频里提到的《一份不太简短的$\LaTeX$介绍》已经上传到服务器（源码在`/public/home/XiaAnRen/GitHub/LaTeX/lshort-zh-cn/`，安装`TeX Live`后可以尝试按照`README-zh.md`，运行`src/make.bat`自行编译出`.pdf`文件；编译好的`.pdf`文件在`/public/home/XiaAnRen/Reference/lshort-zh-cn.pdf`），不需要通览，可以只在遇到问题时再进行查阅。
 
 ## 编译
 
-打开`.tex`文件后VSCode左侧会出现LaTeX扩展，点击`命令`内`构建LaTeX项目`左侧的箭头展开选项卡，如果是编译**没有文献引用**的`.tex`文件则点击`配方: xe*2`，如果是编译**含有文献引用**的`.tex`文件则点击`配方: xe->bib->xe*2`，编译完成后点击VSCode界面右上角四个图标的第二个`查看LaTeX PDF文件`可以看到生成的`.pdf`文件。
+打开`.tex`文件后VSCode左侧会出现$\LaTeX$扩展，点击`命令`内`构建LaTeX项目`左侧的箭头展开选项卡，如果是编译**没有文献引用**的`.tex`文件则点击`配方: xe*2`，如果是编译**含有文献引用**的`.tex`文件则点击`配方: xe->bib->xe*2`，编译完成后点击VSCode界面右上角四个图标的第二个`查看LaTeX PDF文件`可以看到生成的`.pdf`文件。

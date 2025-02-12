@@ -1,0 +1,28 @@
+6:
+  xmin: 0
+  xmax: 2
+  ymin: 0
+  ymax: 4
+  xlabel: $\\mathrm{ Ozone \\ Amount \\ \\left( cm , NTP \\right) }$
+  ylabel: $\\mathrm{ Absorption \\ \\left( \\% \\ Solar \\ Flux \\right) }$
+7:
+  xmin: 0
+  xmax: 0.022
+  ymin: 0
+  ymax: 60
+  xlabel: $\\mathrm{ Ozone \\ Concentration \\ \\left( cm \\cdot km^{-1} \\right) }$
+  ylabel: $\\mathrm{ Altitude \\ \\mathrm{km} }$
+8:
+  xmin: 0
+  xmax: 0.11
+  ymin: 0
+  ymax: 60
+  xlabel: $\\mathrm{ Absorption \\ \\left( \\% \\ Solar \\ Flux \\cdot km^{-1} \\right) }$
+  ylabel: $\\mathrm{ Altitude \\ \\mathrm{km} }$
+9:
+  xmin: 0
+  xmax: 26
+  ymin: 0
+  ymax: 60
+  xlabel: $\\mathrm{ Heating \\ Rate \\ \\left( ^\\circ C \\cdot Day^{-1} \\right) }$
+  ylabel: $\\mathrm{ Altitude \\ \\mathrm{km} }$

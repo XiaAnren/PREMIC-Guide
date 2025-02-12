@@ -4,7 +4,7 @@
 
 <https://blog.csdn.net/Nicolecocol/article/details/136968456>
 
-`TeX Live`是LaTeX的环境，`TeX Studio`是编辑器但更推荐使用VSCode，因此只需下载`TeX Live`。
+`TeX Live`是$\LaTeX$的环境，`TeX Studio`是编辑器但更推荐使用VSCode，因此只需下载`TeX Live`。
 
 ## 下载
 

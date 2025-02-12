@@ -1,0 +1,951 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块化编程 &mdash; PREMIC Guide  文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/main.css?v=55f5f21d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7d86a446"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="多维数组" href="main04_ndarray.html" />
+    <link rel="prev" title="数据分析三剑客" href="main02_plain.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PREMIC Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Basic/index.html">基本指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Article.html">文献查找与下载</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Python教程</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="PEP8.html">编程规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial.html">教程导览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main01_cwd.html">工作目录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main02_plain.html">数据分析三剑客</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">模块化编程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">导入所需模块并设置工作目录</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">定义计算函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fig-6">Fig.6</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fig-7">Fig.7</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fig-8">Fig.8</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fig-9">Fig.9</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">定义绘图函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">绘图工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">各子图正式的绘制函数</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">定义主函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="main04_ndarray.html">多维数组</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../LaTeX/index.html"><span class="math notranslate nohighlight">\(\LaTeX\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../How.html">这个文档是怎么做的</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PREMIC Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Python教程</a></li>
+      <li class="breadcrumb-item active">模块化编程</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Python/main03_func.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>模块化编程<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>对于小规模或简单的任务，代码从头到尾依次执行是完全可行的。</p></li>
+<li><p>但当工程量逐渐增大，所涉及的代码越来越多时，就可以考虑模块化编程的思路。</p></li>
+<li><p>以下代码仍以《大气辐射学》第三次作业的部分为例，展示对于复杂任务，将不同功能的代码进行封装，能够在很大程度上实现简化并增强可读性。<br />
+具体来说，封装好的代码一方面可以被复用（不用写重复或相似的代码），另一方面也可以通过函数名或注释或变量类型的标注，形象地展示其具体实现的功能（对阅读代码的人相对友好）。</p></li>
+<li><p>这里为函数添加的文档使用到了autoDocstring - Python Docstring Generator插件。<br />
+使用时仅需在<code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">my_func(parm:</span> <span class="pre">type)</span> <span class="pre">-&gt;</span> <span class="pre">type:</span></code>下一行输入<code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>，回车后即可得到按照函数输入输出自动生成的文档（再在此基础上作简单调整以满足Ruff要求）。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">my_func</span><span class="p">(</span><span class="n">parm</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_summary_.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        parm (type): _description_</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        type: _description_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h2>导入所需模块并设置工作目录<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.lines</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mlines</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+
+<span class="n">rootpath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+    <span class="s2">&quot;/public/home/XiaAnRen/data3/vscode/python_3.11&quot;</span>
+    <span class="s2">&quot;/Tutorial/tutorial/postprocess&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">rootpath</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>定义计算函数<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="fig-6">
+<h3>Fig.6<a class="headerlink" href="#fig-6" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>臭氧在可见光波段与紫外波段对入射太阳通量的吸收率<span class="math notranslate nohighlight">\(A_\mathrm{oz}\)</span>关于含量<span class="math notranslate nohighlight">\(x\)</span>（单位：<span class="math notranslate nohighlight">\(\mathrm{cm,NTP}\)</span>）的拟合公式为：</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+        A_\mathrm{oz}^\mathrm{vis}(x)
+  ={} &amp; \frac{0.02118x}{1 + 0.042x + 0.000323x^2}
+        \text{；}
+        \\[8pt]
+        A_\mathrm{oz}^\mathrm{uv}(x)
+  ={} &amp; \frac{1.082x}{(1 + 138.6x)^{0.805}} + \frac{0.0658x}{1 + (103.6x)^3}
+        \text{。}
+\end{align*}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_vis</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算可见光波段吸收率vis(x).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (np.ndarray): 臭氧含量.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 可见光波段吸收率.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mf">0.02118</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.042</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">0.000323</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_uv</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算紫外波段吸收率uv(x).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (np.ndarray): 臭氧含量.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 紫外波段吸收率.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">1.082</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">138.6</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="mf">0.805</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="mf">0.0658</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">103.6</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fig-7">
+<h3>Fig.7<a class="headerlink" href="#fig-7" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>海拔<span class="math notranslate nohighlight">\(h\)</span>（单位：<span class="math notranslate nohighlight">\(\mathrm{km}\)</span>）上方垂直气柱内的臭氧含量<span class="math notranslate nohighlight">\(u\)</span>（单位：<span class="math notranslate nohighlight">\(\mathrm{cm,NTP}\)</span>）有：</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+    u(h)
+  = \frac{a + a \exp(-b / c)}
+         {1 + \exp\left[ (h - b) / c \right]}
+    \text{。}
+\end{equation*}\]</div>
+<ul class="simple">
+<li><p>两边对<span class="math notranslate nohighlight">\(h\)</span>求导可得臭氧浓度：</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+   -\frac{\mathrm du}{\mathrm dh}
+  = \frac{a + a \exp(-b / c)}{c}
+    \frac{\exp\left[ (h - b) / c \right]}
+         {\left\{ 1 + \exp\left[ (h - b) / c \right] \right\}^2}
+    \text{。}
+\end{equation*}\]</div>
+<ul class="simple">
+<li><p>其中<span class="math notranslate nohighlight">\(a = 0.4 \ \mathrm{cm}\)</span>、<span class="math notranslate nohighlight">\(b = 20 \ \mathrm{km}\)</span>、<span class="math notranslate nohighlight">\(c = 5 \ \mathrm{km}\)</span>。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_u</span><span class="p">(</span><span class="n">h</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算垂直气柱臭氧含量u(h).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        h (np.ndarray): 海拔高度.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 垂直气柱臭氧含量.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">5</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">/</span> <span class="n">c</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">h</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">c</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_conc</span><span class="p">(</span><span class="n">h</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算垂直气柱臭氧浓度conc(h).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        h (np.ndarray): 海拔高度.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 垂直气柱臭氧浓度.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">5</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">c</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">/</span> <span class="n">c</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">k</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">h</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">h</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">c</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fig-8">
+<h3>Fig.8<a class="headerlink" href="#fig-8" title="Link to this heading"></a></h3>
+<p>实际绘图时：</p>
+<ul class="simple">
+<li><p>将大气从海拔<span class="math notranslate nohighlight">\(60 \ \mathrm{km}\)</span>至地表（海拔<span class="math notranslate nohighlight">\(0 \ \mathrm{km}\)</span>）每<span class="math notranslate nohighlight">\(1 \ \mathrm{km}\)</span>垂直分层，从上到下依次记为第<span class="math notranslate nohighlight">\(1, 2, \cdots, l, l+1, \cdots, L, L+1\)</span>层，其中<span class="math notranslate nohighlight">\(L = 60\)</span>，<span class="math notranslate nohighlight">\(l = 61\)</span>对应地表即海拔<span class="math notranslate nohighlight">\(0 \ \mathrm{km}\)</span>。</p></li>
+<li><p>依次取地表反照率<span class="math notranslate nohighlight">\(R_\mathrm g = 0.0, \ 0.5, \ 1.0\)</span>。</p></li>
+</ul>
+<p>以下是相关公式及代码：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu_0 = \cos\theta_0\)</span>，其中太阳天顶角<span class="math notranslate nohighlight">\(\theta_0 = 60^\circ\)</span>。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_mu</span><span class="p">(</span><span class="n">theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算天顶角余弦mu(theta).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        theta (int, optional): 天顶角. Defaults to 60.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: 天顶角余弦.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>臭氧对太阳通量总的吸收率有：</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+    A_\mathrm{oz}(x) = A\mathrm{_{oz}^{uv}}(x) + A\mathrm{_{oz}^{vis}}(x) \text{。}
+\end{equation*}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_oz</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算臭氧总吸收率oz(x).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (np.ndarray): 臭氧含量.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 臭氧总吸收率.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_vis</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">get_uv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>由以下公式确定<span class="math notranslate nohighlight">\(\bar R(\mu_0)\)</span>：</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+        \bar R(\mu_0)
+  ={} &amp; \bar R_\mathrm a(\mu_0) + \left[ 1 - \bar R_\mathrm a(\mu_0) \right]
+        \left( 1 - \bar{\bar R}_\mathrm a^\ast \right)
+        R_\mathrm g / \left( 1 - \bar{\bar R}_\mathrm a^\ast R_\mathrm g \right)
+        \text{；}
+        \\
+        \bar R_\mathrm a(\mu_0)
+  ={} &amp; 0.219 / \left( 1 + 0.816\mu_0 \right)
+        \text{；}
+        \\
+        \bar{\bar R}_\mathrm a^\ast
+  ={} &amp; 0.144
+        \text{。}
+\end{align*}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_r</span><span class="p">(</span><span class="n">rg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算r.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        rg (float): 地表反照率.</span>
+<span class="sd">        theta (int, optional): 天顶角. Defaults to 60.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: r.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ra</span> <span class="o">=</span> <span class="mf">0.219</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.816</span> <span class="o">*</span> <span class="n">get_mu</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+    <span class="n">ra_ast</span> <span class="o">=</span> <span class="mf">0.144</span>
+    <span class="k">return</span> <span class="n">ra</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ra</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ra_ast</span><span class="p">)</span> <span class="o">*</span> <span class="n">rg</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ra_ast</span> <span class="o">*</span> <span class="n">rg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>由以下公式确定<span class="math notranslate nohighlight">\(x_l\)</span>与<span class="math notranslate nohighlight">\(x_l^\ast\)</span>：</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+        x_l
+  ={} &amp; u_l M
+        \text{；}
+        \\
+        x_l^\ast
+  ={} &amp; u_t M + \bar M (u_t - u_l)
+        \text{；}
+        \\
+        M
+  ={} &amp; 35 \left( 1224 \mu_0^2 + 1 \right)^{-1 / 2}
+        \text{；}
+        \\
+        \bar M
+  ={} &amp; 1.9
+        \text{。}
+\end{align*}  \]</div>
+<ul class="simple">
+<li><p>其中<span class="math notranslate nohighlight">\(u_l\)</span>是第<span class="math notranslate nohighlight">\(l\)</span>层上方的臭氧总量，<span class="math notranslate nohighlight">\(u_t\)</span>是地表上方的臭氧总量。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_x</span><span class="p">(</span><span class="n">u</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算各层臭氧含量.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u (np.ndarray): 垂直气柱臭氧含量.</span>
+<span class="sd">        theta (int, optional): 天顶角. Defaults to 60.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 各层臭氧含量.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">u</span> <span class="o">*</span> <span class="n">get_m</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_xast</span><span class="p">(</span><span class="n">u</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算各层臭氧含量.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u (np.ndarray): 垂直气柱臭氧含量.</span>
+<span class="sd">        theta (int, optional): 天顶角. Defaults to 60.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 各层臭氧含量.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">get_m</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">m_bar</span> <span class="o">=</span> <span class="mf">1.9</span>
+    <span class="n">ut</span> <span class="o">=</span> <span class="n">get_u</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ut</span> <span class="o">*</span> <span class="n">m</span> <span class="o">+</span> <span class="n">m_bar</span> <span class="o">*</span> <span class="p">(</span><span class="n">ut</span> <span class="o">-</span> <span class="n">u</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_m</span><span class="p">(</span><span class="n">theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算m.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        theta (int, optional): 天顶角. Defaults to 60.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: m.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mi">35</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1224</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">get_mu</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>综合以上各式，第<span class="math notranslate nohighlight">\(l\)</span>层臭氧的太阳通量吸收率为：</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+    A_{l, \mathrm{oz}}
+  = \mu_0
+    \left\{   A_\mathrm{oz}(x_{l+1})
+            - A_\mathrm{oz}(x_{l})
+            + \bar R(\mu_0)
+              \left[ A_\mathrm{oz}(x_{l}^\ast) - A_\mathrm{oz}(x_{l+1}^\ast) \right] \right\}
+    \text{。}
+\end{equation*}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_abso</span><span class="p">(</span>
+    <span class="n">h</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">hh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">rg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算各层吸收率abso.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        h (np.ndarray): 该层海拔高度.</span>
+<span class="sd">        hh (np.ndarray): 上一层海拔高度.</span>
+<span class="sd">        rg (float): 地表反照率.</span>
+<span class="sd">        theta (int, optional): 天顶角. Defaults to 60.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 各层吸收率.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 计算该层与上一层的垂直气柱臭氧含量</span>
+    <span class="n">u</span><span class="p">,</span> <span class="n">uu</span> <span class="o">=</span> <span class="n">get_u</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="n">get_u</span><span class="p">(</span><span class="n">hh</span><span class="p">)</span>
+    <span class="c1"># 计算该层与上一层的臭氧含量</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">xx</span> <span class="o">=</span> <span class="n">get_x</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span> <span class="n">get_x</span><span class="p">(</span><span class="n">uu</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="n">x_ast</span><span class="p">,</span> <span class="n">xx_ast</span> <span class="o">=</span> <span class="n">get_xast</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span> <span class="n">get_xast</span><span class="p">(</span><span class="n">uu</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="c1"># 计算各层吸收率</span>
+    <span class="k">return</span> <span class="n">get_mu</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">get_oz</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span> <span class="o">-</span> <span class="n">get_oz</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="o">+</span> <span class="n">get_r</span><span class="p">(</span><span class="n">rg</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">get_oz</span><span class="p">(</span><span class="n">x_ast</span><span class="p">)</span> <span class="o">-</span> <span class="n">get_oz</span><span class="p">(</span><span class="n">xx_ast</span><span class="p">))</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fig-9">
+<h3>Fig.9<a class="headerlink" href="#fig-9" title="Link to this heading"></a></h3>
+<p>实际绘图时：</p>
+<ul class="simple">
+<li><p>依次令太阳天顶角<span class="math notranslate nohighlight">\(\theta_0 = 0^\circ, \ 60^\circ, \ 80^\circ\)</span>、地表反照率<span class="math notranslate nohighlight">\(R_\mathrm g = 0.0, \ 1.0\)</span>。</p></li>
+<li><p>调整单位，即将加热率<span class="math notranslate nohighlight">\(\times 86400 \ \mathrm{s \cdot Day^{-1}}\)</span>。</p></li>
+</ul>
+<p>以下是相关公式及代码：</p>
+<ul class="simple">
+<li><p>计算标准大气<span class="math notranslate nohighlight">\(61 \ \mathrm{km}\)</span>以下的温度垂直廓线<span class="math notranslate nohighlight">\(T(z)\)</span>：</p>
+<ul>
+<li><p>在<span class="math notranslate nohighlight">\(11 \ \mathrm{km}\)</span>以下大气温度随高度降低（<span class="math notranslate nohighlight">\(-6.5 \ \mathrm{K \cdot km^{-1}}\)</span>）；</p></li>
+<li><p><span class="math notranslate nohighlight">\(11 \text{--} 20 \ \mathrm{km}\)</span>为等温；</p></li>
+<li><p><span class="math notranslate nohighlight">\(20 \text{--} 47 \ \mathrm{km}\)</span>温度逐渐上升，其中<span class="math notranslate nohighlight">\(32 \ \mathrm{km}\)</span>以下为<span class="math notranslate nohighlight">\(1.0 \ \mathrm{K \cdot km^{-1}}\)</span>，<span class="math notranslate nohighlight">\(32 \ \mathrm{km}\)</span>以上为<span class="math notranslate nohighlight">\(2.8 \ \mathrm{K \cdot km^{-1}}\)</span>；</p></li>
+<li><p><span class="math notranslate nohighlight">\(47 \text{--} 51 \ \mathrm{km}\)</span>等温且有极大值<span class="math notranslate nohighlight">\(270.65 \ \mathrm{K}\)</span>；</p></li>
+<li><p>在此高度以上温度又逐渐下降（<span class="math notranslate nohighlight">\(-2.8 \ \mathrm{K \cdot km^{-1}}\)</span>）。</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>将上述温度垂直廓线<span class="math notranslate nohighlight">\(T(z)\)</span>代入下式即可得到气压垂直廓线：</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+    p
+  = p_0 \exp\left[ -\frac{1}{R_\mathrm d}
+    \int_0^z \frac{\mathrm g}{T(z)} \, \mathrm dz \right] \text{。}
+\end{equation*}\]</div>
+<ul class="simple">
+<li><p>其中：</p>
+<ul>
+<li><p>地表气压<span class="math notranslate nohighlight">\(p_0 = 1013.25 \ \mathrm{hPa}\)</span>；</p></li>
+<li><p>标准大气的比气体常数<span class="math notranslate nohighlight">\(R_\mathrm d = 287.05 \ \mathrm{J \cdot kg^{-1} \cdot K^{-1}}\)</span>。</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_p</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算气压廓线.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 海拔范围[0km,61km]的气压廓线.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 创建海拔数组</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">62</span><span class="p">)</span>
+    <span class="c1"># 计算温度廓线</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">288.15</span><span class="p">,</span> <span class="mf">216.65</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="n">t</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">21</span><span class="p">]</span> <span class="o">=</span> <span class="mf">216.65</span>
+    <span class="n">t</span><span class="p">[</span><span class="mi">21</span><span class="p">:</span><span class="mi">33</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">217.65</span><span class="p">,</span> <span class="mf">228.65</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="n">t</span><span class="p">[</span><span class="mi">33</span><span class="p">:</span><span class="mi">48</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">231.45</span><span class="p">,</span> <span class="mf">270.65</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+    <span class="n">t</span><span class="p">[</span><span class="mi">48</span><span class="p">:</span><span class="mi">52</span><span class="p">]</span> <span class="o">=</span> <span class="mf">270.65</span>
+    <span class="n">t</span><span class="p">[</span><span class="mi">52</span><span class="p">:</span><span class="mi">62</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">267.85</span><span class="p">,</span> <span class="mf">242.65</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="c1"># 计算气压廓线</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mf">9.80665</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="mf">1013.25</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">g</span> <span class="o">/</span> <span class="n">t</span><span class="p">[:</span><span class="n">z</span><span class="p">],</span> <span class="n">h</span><span class="p">[:</span><span class="n">z</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">/</span> <span class="mf">287.05</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">63</span><span class="p">)</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>第<span class="math notranslate nohighlight">\(l\)</span>层的加热率为：</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+    \frac{\Delta T}{\Delta t}
+  = \frac{\pi F_0 \mathrm g A_l}{c_\mathrm p \Delta P \Delta t}
+    \text{。}
+\end{equation*}\]</div>
+<ul class="simple">
+<li><p>其中：</p>
+<ul>
+<li><p>太阳通量<span class="math notranslate nohighlight">\(\pi F_0 = \pi \bar S_0 / 4\)</span>，太阳常数<span class="math notranslate nohighlight">\(\bar S_0 = 1366.09 \ \mathrm{W \cdot m^{-2}}\)</span>；</p></li>
+<li><p>重力加速度<span class="math notranslate nohighlight">\(\mathrm g = 9.80665 \ \mathrm{m \cdot s^{-2}}\)</span>；</p></li>
+<li><p>臭氧的定压比热容<span class="math notranslate nohighlight">\(c_\mathrm p = 833 \ \mathrm{J \cdot kg^{-1} \cdot K^{-1}}\)</span>；</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta P\)</span>是该层层底与层顶之间的气压差。</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_heat</span><span class="p">(</span>
+    <span class="n">h</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">hh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">rg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算各层加热率heat.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        h (np.ndarray): 该层海拔高度.</span>
+<span class="sd">        hh (np.ndarray): 上一层海拔高度.</span>
+<span class="sd">        rg (float): 地表反照率.</span>
+<span class="sd">        theta (int, optional): 天顶角. Defaults to 60.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: 各层加热率.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mf">9.80665</span>
+    <span class="n">f0</span> <span class="o">=</span> <span class="mf">1366.09</span> <span class="o">/</span> <span class="mi">4</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">get_p</span><span class="p">()</span>
+    <span class="n">abso</span> <span class="o">=</span> <span class="n">get_abso</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">hh</span><span class="p">,</span> <span class="n">rg</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">f0</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">abso</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">*</span> <span class="mi">86400</span> <span class="o">/</span> <span class="p">(</span><span class="mi">833</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2>定义绘图函数<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<section id="id5">
+<h3>绘图工具<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>按照数据与逻辑分离的原则，将所有子图都需要设置的参数（x、y轴的范围与标签）保存到配置文件<code class="docutils literal notranslate"><span class="pre">main03.yaml</span></code>再统一进行读取。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_yaml</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;读取配置文件.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: 所有子图都需要设置的公共参数.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;main03.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>将每个子图内都会重复的操作打包到一个函数。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;标准化子图.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax (plt.Axes): 被标准化的子图.</span>
+<span class="sd">        num (int): 子图标签.</span>
+<span class="sd">        config (dict): 所有子图都需要设置的公共参数.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 该子图的参数</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+    <span class="c1"># 添加网格线</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+    <span class="c1"># 显示次刻度</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+    <span class="c1"># 设置刻度字号</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="c1"># 设置x、y轴范围</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;xmin&quot;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;xmax&quot;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;ymin&quot;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;ymax&quot;</span><span class="p">])</span>
+    <span class="c1"># 设置x、y轴标签</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;xlabel&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;ylabel&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="c1"># 标识子图</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="mf">0.98</span><span class="p">,</span>
+        <span class="mf">0.035</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;Fig. </span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">bbox</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;lw&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Fig.9专用的添加图例的函数。<br />
+参考了<a class="reference external" href="https://matplotlib.org/stable/users/explain/axes/legend_guide.html">https://matplotlib.org/stable/users/explain/axes/legend_guide.html</a><br />
+无需掌握，只要知道想添加这么一个功能的时候应该翻阅哪里然后现学现用就行。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_add_legend</span><span class="p">(</span><span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;为Fig.9添加图例.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax (plt.Axes): Fig.9对应子图.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">legend</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+        <span class="n">handles</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">(</span>
+                <span class="p">[],</span>
+                <span class="p">[],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+                <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$R_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{g}</span><span class="s2"> = 1.0$&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">(</span>
+                <span class="p">[],</span>
+                <span class="p">[],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+                <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$R_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{g}</span><span class="s2"> = 0.0$&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">),</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+        <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+        <span class="n">handles</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">(</span>
+                <span class="p">[],</span>
+                <span class="p">[],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">theta_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{0}</span><span class="s2"> = 0^</span><span class="se">\\</span><span class="s2">circ$&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">(</span>
+                <span class="p">[],</span>
+                <span class="p">[],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">theta_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{0}</span><span class="s2"> = 60^</span><span class="se">\\</span><span class="s2">circ$&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">(</span>
+                <span class="p">[],</span>
+                <span class="p">[],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">theta_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{0}</span><span class="s2"> = 80^</span><span class="se">\\</span><span class="s2">circ$&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.015</span><span class="p">),</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+        <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>各子图正式的绘制函数<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fig06</span><span class="p">(</span><span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;绘制Fig.6.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax (plt.Axes): 画布中的子图.</span>
+<span class="sd">        config (dict): 所有子图都需要设置的公共参数.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 标准化子图</span>
+    <span class="n">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="c1"># 创建臭氧含量数组</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="c1"># 计算并绘制可见光波段吸收率</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">get_vis</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$A_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{oz}</span><span class="s2">^</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{vis}</span><span class="s2">(x)$&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># 计算并绘制紫外波段吸收率</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">get_uv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$A_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{oz}</span><span class="s2">^</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{uv}</span><span class="s2">(x)$&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># 添加图例</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+        <span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.7615</span><span class="p">),</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+        <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fig07</span><span class="p">(</span><span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;绘制Fig.7.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax (plt.Axes): 画布中的子图.</span>
+<span class="sd">        config (dict): 所有子图都需要设置的公共参数.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 标准化子图</span>
+    <span class="n">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="c1"># 创建海拔高度数组</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="c1"># 计算并绘制垂直气柱臭氧浓度</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">get_conc</span><span class="p">(</span><span class="n">h</span><span class="p">),</span>
+        <span class="n">h</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fig08</span><span class="p">(</span><span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;绘制Fig.8.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax (plt.Axes): 画布中的子图.</span>
+<span class="sd">        config (dict): 所有子图都需要设置的公共参数.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 标准化子图</span>
+    <span class="n">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="c1"># 创建该层的海拔高度数组</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">61</span><span class="p">)</span>
+    <span class="c1"># 创建上一层的海拔高度数组</span>
+    <span class="n">hh</span> <span class="o">=</span> <span class="n">h</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="c1"># 计算并绘制不同地表反照率的吸收率</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="mi">100</span> <span class="o">*</span> <span class="n">get_abso</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">hh</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">h</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$R_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{g}</span><span class="s2"> = 1.0$&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="mi">100</span> <span class="o">*</span> <span class="n">get_abso</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">hh</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">h</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$R_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{g}</span><span class="s2"> = 0.5$&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="mi">100</span> <span class="o">*</span> <span class="n">get_abso</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">hh</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+        <span class="n">h</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$R_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{g}</span><span class="s2"> = 0.0$&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># 添加图例</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+        <span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="mf">0.635</span><span class="p">,</span> <span class="mf">0.6695</span><span class="p">),</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+        <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fig09</span><span class="p">(</span><span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;绘制Fig.9.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax (plt.Axes): 画布中的子图.</span>
+<span class="sd">        config (dict): 所有子图都需要设置的公共参数.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 标准化子图</span>
+    <span class="n">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="c1"># 创建该层的海拔高度数组</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">62</span><span class="p">)</span>
+    <span class="c1"># 创建上一层的海拔高度数组</span>
+    <span class="n">hh</span> <span class="o">=</span> <span class="n">h</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="c1"># 计算并绘制不同天顶角、地表反照率的加热率</span>
+    <span class="k">for</span> <span class="n">theta</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">rg</span><span class="p">,</span> <span class="n">ls</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">get_heat</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">hh</span><span class="p">,</span> <span class="n">rg</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span>
+                <span class="n">h</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+                <span class="n">linestyle</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="c1"># 添加图例</span>
+    <span class="n">_add_legend</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2>定义主函数<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>表示脚本入口，后面接直接运行该文件时会执行的代码内容。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main()</span></code>不是必需的，但将文件主要功能封装在一个函数里可以方便写测试。<br />
+例如只想要输出某些函数里的某些变量，而不需要运行整段代码时，就可以只注释一行<code class="docutils literal notranslate"><span class="pre">main()</span></code>，省去了将大段代码注释的麻烦。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;在同一张画布上进行绘制并保存.&quot;&quot;&quot;</span>
+    <span class="c1"># 读取配置文件</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">get_yaml</span><span class="p">()</span>
+    <span class="c1"># 创建画布与子图</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># 调整子图间距</span>
+    <span class="c1"># 这步的顺序其实可以在创建子图之前</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.18</span><span class="p">)</span>
+    <span class="c1"># 绘制并保存</span>
+    <span class="n">fig06</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">config</span><span class="p">)</span>
+    <span class="n">fig07</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">config</span><span class="p">)</span>
+    <span class="n">fig08</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">config</span><span class="p">)</span>
+    <span class="n">fig09</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">config</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;main03.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/031bdbf12caced7781e61461b5a53009622ca95cabd1a4e13edc0110fb6ca6a8.png" src="../_images/031bdbf12caced7781e61461b5a53009622ca95cabd1a4e13edc0110fb6ca6a8.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="main02_plain.html" class="btn btn-neutral float-left" title="数据分析三剑客" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="main04_ndarray.html" class="btn btn-neutral float-right" title="多维数组" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, XiaAnren。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

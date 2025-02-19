@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数据分析三剑客 &mdash; PREMIC Guide  文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/main.css?v=55f5f21d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=7d86a446"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="模块化编程" href="main03_func.html" />
+    <link rel="prev" title="工作目录" href="main01_cwd.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PREMIC Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Basic/index.html">基本指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Article.html">文献查找与下载</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../PEP8.html">编程规范</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">基本概述</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="main01_cwd.html">工作目录</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">数据分析三剑客</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#numpy">NumPy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pandas">Pandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#matplotlib">Matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="main03_func.html">模块化编程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main04_ndarray.html">多维数组</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main05_nc.html">netCDF4</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Matplotlib/index.html">Matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../LaTeX/index.html"><span class="math notranslate nohighlight">\(\LaTeX\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../How.html">这个文档是怎么做的</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PREMIC Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Python</a></li>
+          <li class="breadcrumb-item"><a href="index.html">基本概述</a></li>
+      <li class="breadcrumb-item active">数据分析三剑客</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/Python/main/main02_plain.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>数据分析三剑客<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>NumPy</p>
+<ul>
+<li><p>使用场景：高性能数值计算</p></li>
+<li><p>用户指南：<a class="reference external" href="https://numpy.org/doc/stable/user">https://numpy.org/doc/stable/user</a></p></li>
+</ul>
+</li>
+<li><p>Pandas</p>
+<ul>
+<li><p>使用场景：结构化数据（表格）处理</p></li>
+<li><p>用户指南：<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide">https://pandas.pydata.org/pandas-docs/stable/user_guide</a></p></li>
+</ul>
+</li>
+<li><p>Matplotlib</p>
+<ul>
+<li><p>使用场景：数据可视化</p></li>
+<li><p>用户指南：<a class="reference external" href="https://matplotlib.org/stable/users/index.html">https://matplotlib.org/stable/users/index.html</a></p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">rootpath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+    <span class="s2">&quot;/public/home/XiaAnRen/data3/vscode/python_3.11&quot;</span>
+    <span class="s2">&quot;/Tutorial/tutorial/postprocess&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">rootpath</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="numpy">
+<h2>NumPy<a class="headerlink" href="#numpy" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>主要特点：</p>
+<ul>
+<li><p>底层是通过C语言实现的，因此相比使用纯Python的方法，NumPy速度更快、运算效率也更高。</p></li>
+<li><p>支持向量化编程，即可以将数组看作整体进行计算。</p></li>
+</ul>
+</li>
+<li><p>使用技巧：</p>
+<ul>
+<li><p>当想要实现某一功能时（求统计量、找最值的索引、积分等），优先考虑NumPy是否有该方法（询问AI），或者能否借助已有的功能，不要重复造轮子（麻烦而且效率低）。</p></li>
+<li><p>编程时尽可能以数组为单位，这样写代码和实际运行起来都会很快。<br />
+不要学AI的写法，即创建空数组，再通过for循环依次计算并赋值。<br />
+原因在于for循环运行在Python层面，在数据量非常大的时候慢得尤为显著，这样写就浪费了NumPy提供的高效运算能力。</p></li>
+</ul>
+</li>
+<li><p>示例代码：</p>
+<ul>
+<li><p>以《大气辐射学》第三次作业为例，即计算<span class="math notranslate nohighlight">\(A_\mathrm{oz}\)</span>随<span class="math notranslate nohighlight">\(x\)</span>的变化情况，其中<span class="math notranslate nohighlight">\(x\)</span>的范围为<span class="math notranslate nohighlight">\([0,2]\)</span>，<span class="math notranslate nohighlight">\(A_\mathrm{oz}\)</span>由下式给出：</p></li>
+</ul>
+</li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+        A_\mathrm{oz}^\mathrm{vis}(x)
+  ={} &amp; \frac{0.02118x}{1 + 0.042x + 0.000323x^2}
+        \text{；}
+        \\[8pt]
+        A_\mathrm{oz}^\mathrm{uv}(x)
+  ={} &amp; \frac{1.082x}{(1 + 138.6x)^{0.805}} + \frac{0.0658x}{1 + (103.6x)^3}
+        \text{。}
+\end{align*}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用np.linspace创建了一个范围[0,2]，共101个元素的数组</span>
+<span class="c1"># 类似的还有np.arange</span>
+<span class="c1"># 两者区别在于：</span>
+<span class="c1"># np.linspace是闭区间，np.arange是左闭右开区间</span>
+<span class="c1"># np.linspace的步长会受浮点数精度影响出现波动（详见main02.csv的第一列）</span>
+<span class="c1"># 因此：</span>
+<span class="c1"># np.linspace适合对步长的精度没有要求的场景，此时能够显式给出范围及元素数量</span>
+<span class="c1"># np.arange适合需要严格控制步长为定值的场景</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="c1"># 以数组为单位进行计算</span>
+<span class="c1"># 这里的np.power(x, n)即x的n次方</span>
+<span class="n">vis</span> <span class="o">=</span> <span class="mf">0.02118</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.042</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">0.000323</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">uv</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.082</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">138.6</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="mf">0.805</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span>
+    <span class="mf">0.0658</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">103.6</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.  , 0.02, 0.04, 0.06, 0.08, 0.1 , 0.12, 0.14, 0.16, 0.18, 0.2 ,
+       0.22, 0.24, 0.26, 0.28, 0.3 , 0.32, 0.34, 0.36, 0.38, 0.4 , 0.42,
+       0.44, 0.46, 0.48, 0.5 , 0.52, 0.54, 0.56, 0.58, 0.6 , 0.62, 0.64,
+       0.66, 0.68, 0.7 , 0.72, 0.74, 0.76, 0.78, 0.8 , 0.82, 0.84, 0.86,
+       0.88, 0.9 , 0.92, 0.94, 0.96, 0.98, 1.  , 1.02, 1.04, 1.06, 1.08,
+       1.1 , 1.12, 1.14, 1.16, 1.18, 1.2 , 1.22, 1.24, 1.26, 1.28, 1.3 ,
+       1.32, 1.34, 1.36, 1.38, 1.4 , 1.42, 1.44, 1.46, 1.48, 1.5 , 1.52,
+       1.54, 1.56, 1.58, 1.6 , 1.62, 1.64, 1.66, 1.68, 1.7 , 1.72, 1.74,
+       1.76, 1.78, 1.8 , 1.82, 1.84, 1.86, 1.88, 1.9 , 1.92, 1.94, 1.96,
+       1.98, 2.  ])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.001</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.  , 0.02, 0.04, 0.06, 0.08, 0.1 , 0.12, 0.14, 0.16, 0.18, 0.2 ,
+       0.22, 0.24, 0.26, 0.28, 0.3 , 0.32, 0.34, 0.36, 0.38, 0.4 , 0.42,
+       0.44, 0.46, 0.48, 0.5 , 0.52, 0.54, 0.56, 0.58, 0.6 , 0.62, 0.64,
+       0.66, 0.68, 0.7 , 0.72, 0.74, 0.76, 0.78, 0.8 , 0.82, 0.84, 0.86,
+       0.88, 0.9 , 0.92, 0.94, 0.96, 0.98, 1.  , 1.02, 1.04, 1.06, 1.08,
+       1.1 , 1.12, 1.14, 1.16, 1.18, 1.2 , 1.22, 1.24, 1.26, 1.28, 1.3 ,
+       1.32, 1.34, 1.36, 1.38, 1.4 , 1.42, 1.44, 1.46, 1.48, 1.5 , 1.52,
+       1.54, 1.56, 1.58, 1.6 , 1.62, 1.64, 1.66, 1.68, 1.7 , 1.72, 1.74,
+       1.76, 1.78, 1.8 , 1.82, 1.84, 1.86, 1.88, 1.9 , 1.92, 1.94, 1.96,
+       1.98, 2.  ])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pandas">
+<h2>Pandas<a class="headerlink" href="#pandas" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>主要特点：</p>
+<ul>
+<li><p>以类似表格的形式读取文件（文本文档、CSV、Excel等）并进行处理（表头、更友好的行列索引、一次性计算所有统计量、合并多个表格等）；</p></li>
+<li><p>可以将数据明文存储到表格文件中。</p></li>
+</ul>
+</li>
+<li><p>示例代码：</p>
+<ul>
+<li><p>Pandas不是本文件重点，因此仅简单展示了创建数据对象并将其保存到CSV文件的过程。</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将字典转换为DataFrame对象</span>
+<span class="c1"># 字典中每一个键值对分别对应DataFrame的表头和该列数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;vis&quot;</span><span class="p">:</span> <span class="n">vis</span><span class="p">,</span> <span class="s2">&quot;uv&quot;</span><span class="p">:</span> <span class="n">uv</span><span class="p">})</span>
+<span class="c1"># 保存为CSV文件并且不添加行索引</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;main02.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>vis</th>
+      <th>uv</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.00</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.02</td>
+      <td>0.000423</td>
+      <td>0.007565</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.04</td>
+      <td>0.000846</td>
+      <td>0.009576</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.06</td>
+      <td>0.001268</td>
+      <td>0.010785</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.08</td>
+      <td>0.001689</td>
+      <td>0.011651</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>1.92</td>
+      <td>0.037590</td>
+      <td>0.023123</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>1.94</td>
+      <td>0.037951</td>
+      <td>0.023170</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>1.96</td>
+      <td>0.038311</td>
+      <td>0.023217</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>1.98</td>
+      <td>0.038672</td>
+      <td>0.023264</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>2.00</td>
+      <td>0.039031</td>
+      <td>0.023310</td>
+    </tr>
+  </tbody>
+</table>
+<p>101 rows × 3 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="matplotlib">
+<h2>Matplotlib<a class="headerlink" href="#matplotlib" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>主要特点：</p>
+<ul>
+<li><p>画图。</p></li>
+</ul>
+</li>
+<li><p>使用技巧：</p>
+<ul>
+<li><p>有时候需要基于<code class="docutils literal notranslate"><span class="pre">Axes</span></code>同时绘制多个子图，那么不妨在即使只有一张子图的情况下也使用相同的绘制流程。<br />
+即创建画布与子图，再分别在各个子图上进行绘制。<br />
+这样的好处在于流程以及所使用的方法都是固定的，不用专门在“绘制一张子图”与“绘制多张子图”之间转换思维方式。<br />
+因此尽量不要像AI那样类似<code class="docutils literal notranslate"><span class="pre">plt.plot</span></code>地画图。</p></li>
+</ul>
+</li>
+<li><p>示例代码：</p>
+<ul>
+<li><p>将<span class="math notranslate nohighlight">\(A_\mathrm{oz}\)</span>随<span class="math notranslate nohighlight">\(x\)</span>的变化情况进行可视化。</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建画布与子图</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># 添加网格线</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="c1"># 显示次刻度</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="c1"># 设置刻度字号</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># 绘制折线图</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">vis</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$A_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{oz}</span><span class="s2">^</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{vis}</span><span class="s2">(x)$&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">uv</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$A_</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{oz}</span><span class="s2">^</span><span class="se">\\</span><span class="s2">mathrm</span><span class="si">{uv}</span><span class="s2">(x)$&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># 设置x、y轴范围</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="c1"># 设置x、y轴标签</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Ozone </span><span class="se">\\</span><span class="s2"> Amount </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( cm , NTP </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Absorption </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( </span><span class="se">\\</span><span class="s2">% </span><span class="se">\\</span><span class="s2"> Solar </span><span class="se">\\</span><span class="s2"> Flux </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># 添加图例</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+    <span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.78</span><span class="p">),</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># 标识子图</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="mf">0.98</span><span class="p">,</span>
+    <span class="mf">0.035</span><span class="p">,</span>
+    <span class="s2">&quot;Fig. 6&quot;</span><span class="p">,</span>
+    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;lw&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="c1"># 保存图片</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;main02.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/afff3a3f71211fa34e43dd9cf29bdf3f843f4e9b6252276f8a79d54bce8102c5.png" src="../../_images/afff3a3f71211fa34e43dd9cf29bdf3f843f4e9b6252276f8a79d54bce8102c5.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="main01_cwd.html" class="btn btn-neutral float-left" title="工作目录" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="main03_func.html" class="btn btn-neutral float-right" title="模块化编程" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, XiaAnren。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

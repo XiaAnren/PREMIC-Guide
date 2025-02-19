@@ -1,0 +1,1328 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>netCDF4 &mdash; PREMIC Guide  文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/main.css?v=55f5f21d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=7d86a446"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Matplotlib" href="../Matplotlib/index.html" />
+    <link rel="prev" title="多维数组" href="main04_ndarray.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PREMIC Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Basic/index.html">基本指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Article.html">文献查找与下载</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../PEP8.html">编程规范</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">基本概述</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="main01_cwd.html">工作目录</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main02_plain.html">数据分析三剑客</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main03_func.html">模块化编程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main04_ndarray.html">多维数组</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">netCDF4</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">文件读取</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">查看文件信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">读取变量的值</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Matplotlib/index.html">Matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../LaTeX/index.html"><span class="math notranslate nohighlight">\(\LaTeX\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../How.html">这个文档是怎么做的</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PREMIC Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Python</a></li>
+          <li class="breadcrumb-item"><a href="index.html">基本概述</a></li>
+      <li class="breadcrumb-item active">netCDF4</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/Python/main/main05_nc.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="netcdf4">
+<h1>netCDF4<a class="headerlink" href="#netcdf4" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>netCDF4是一种常见数据存储格式，通常以<code class="docutils literal notranslate"><span class="pre">.nc</span></code>、<code class="docutils literal notranslate"><span class="pre">.p</span></code>作为文件后缀（也可以像wrfout那样没有后缀）。</p></li>
+<li><p>netCDF4一般包含数据本身及其元数据（坐标、单位、物理意义等），即文件具有自描述性，能够方便使用者查看数据的具体情况。</p></li>
+</ul>
+<section id="id1">
+<h2>文件读取<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ncview</span></code>可以快速预览文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">netCDF4</span></code>的<code class="docutils literal notranslate"><span class="pre">Dataset</span></code>可以读取文件以绘图或数据处理。<br />
+<code class="docutils literal notranslate"><span class="pre">login2</span></code>、<code class="docutils literal notranslate"><span class="pre">node</span></code>节点在白天（时段不确定）可能无法读取<code class="docutils literal notranslate"><span class="pre">netCDF4</span></code>文件，该问题很早就已知但暂无解决办法。<br />
+<code class="docutils literal notranslate"><span class="pre">mgt</span></code>全天可读取，但是不允许在<code class="docutils literal notranslate"><span class="pre">mgt</span></code>运行脚本，因此只建议在有急用的情况下<strong>偷偷地</strong>先在<code class="docutils literal notranslate"><span class="pre">mgt</span></code>读取出来并保存为NumPy的<code class="docutils literal notranslate"><span class="pre">.npy</span></code>文件，再去其他节点作后续处理。</p></li>
+<li><p>这里以《大气数值模式及应用》第四次作业（理想试验）文件为例。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">netCDF4</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+    <span class="s2">&quot;/public/home/XiaAnRen/data3/vscode/data/course/Atmo-modeling/exp04/wrfout&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ncfile</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h2>查看文件信息<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>直接<code class="docutils literal notranslate"><span class="pre">print</span></code>文件可以看到运行WRF时的配置信息（<code class="docutils literal notranslate"><span class="pre">DX</span></code>、<code class="docutils literal notranslate"><span class="pre">DY</span></code>、投影、参数化方案等），以及文件所包含的维度（<code class="docutils literal notranslate"><span class="pre">dimensions</span></code>）与变量（<code class="docutils literal notranslate"><span class="pre">variables</span></code>）。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ncfile</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;netCDF4._netCDF4.Dataset&#39;&gt;
+root group (NETCDF4 data model, file format HDF5):
+    TITLE:  OUTPUT FROM WRF V4.6.0 MODEL
+    START_DATE: 0001-01-01_00:00:00
+    SIMULATION_START_DATE: 0001-01-01_00:00:00
+    WEST-EAST_GRID_DIMENSION: 42
+    SOUTH-NORTH_GRID_DIMENSION: 42
+    BOTTOM-TOP_GRID_DIMENSION: 41
+    DX: 2000.0
+    DY: 2000.0
+    AERCU_OPT: 0
+    AERCU_FCT: 1.0
+    IDEAL_CASE: 2
+    DIFF_6TH_SLOPEOPT: 0
+    AUTO_LEVELS_OPT: 2
+    DIFF_6TH_THRESH: 0.1
+    DZBOT: 50.0
+    DZSTRETCH_S: 1.3
+    DZSTRETCH_U: 1.1
+    SKEBS_ON: 0
+    USE_Q_DIABATIC: 0
+    GRIDTYPE: C
+    DIFF_OPT: 2
+    KM_OPT: 2
+    DAMP_OPT: 2
+    DAMPCOEF: 0.003
+    KHDIF: 500.0
+    KVDIF: 500.0
+    MP_PHYSICS: 28
+    RA_LW_PHYSICS: 0
+    RA_SW_PHYSICS: 0
+    SF_SFCLAY_PHYSICS: 0
+    SF_SURFACE_PHYSICS: 0
+    BL_PBL_PHYSICS: 0
+    CU_PHYSICS: 0
+    SF_LAKE_PHYSICS: 0
+    SURFACE_INPUT_SOURCE: 3
+    SST_UPDATE: 0
+    GHG_INPUT: 1
+    GRID_FDDA: 0
+    GFDDA_INTERVAL_M: 0
+    GFDDA_END_H: 0
+    GRID_SFDDA: 0
+    SGFDDA_INTERVAL_M: 0
+    SGFDDA_END_H: 0
+    HYPSOMETRIC_OPT: 1
+    USE_THETA_M: 1
+    GWD_OPT: 0
+    SF_URBAN_PHYSICS: 0
+    SF_SURFACE_MOSAIC: 0
+    SF_OCEAN_PHYSICS: 0
+    SLUCM_DISTRIBUTED_DRAG: 0
+    DISTRIBUTED_AHE_OPT: 0
+    SHCU_PHYSICS: 0
+    MFSHCONV: 0
+    FEEDBACK: 1
+    SMOOTH_OPTION: 0
+    SWRAD_SCAT: 1.0
+    W_DAMPING: 0
+    RADT: 30.0
+    BLDT: 0.0
+    CUDT: 5.0
+    AER_OPT: 0
+    SWINT_OPT: 0
+    AER_TYPE: 1
+    AER_AOD550_OPT: 1
+    AER_ANGEXP_OPT: 1
+    AER_SSA_OPT: 1
+    AER_ASY_OPT: 1
+    AER_AOD550_VAL: 0.12
+    AER_ANGEXP_VAL: 1.3
+    AER_SSA_VAL: 0.85
+    AER_ASY_VAL: 0.9
+    MOIST_ADV_OPT: 1
+    SCALAR_ADV_OPT: 1
+    TKE_ADV_OPT: 1
+    DIFF_6TH_OPT: 0
+    DIFF_6TH_FACTOR: 0.12
+    OBS_NUDGE_OPT: 0
+    BUCKET_MM: -1.0
+    BUCKET_J: -1.0
+    PREC_ACC_DT: 0.0
+    ISFTCFLX: 0
+    ISHALLOW: 0
+    ISFFLX: 1
+    ICLOUD: 1
+    ICLOUD_CU: 0
+    TRACER_PBLMIX: 1
+    SCALAR_PBLMIX: 0
+    YSU_TOPDOWN_PBLMIX: 1
+    GRAV_SETTLING: 0
+    CLDOVRLP: 2
+    IDCOR: 0
+    DFI_OPT: 0
+    NTASKS_X: 2
+    NTASKS_Y: 4
+    NTASKS_TOTAL: 8
+    SIMULATION_INITIALIZATION_TYPE: IDEALIZED DATA
+    WEST-EAST_PATCH_START_UNSTAG: 1
+    WEST-EAST_PATCH_END_UNSTAG: 41
+    WEST-EAST_PATCH_START_STAG: 1
+    WEST-EAST_PATCH_END_STAG: 42
+    SOUTH-NORTH_PATCH_START_UNSTAG: 1
+    SOUTH-NORTH_PATCH_END_UNSTAG: 41
+    SOUTH-NORTH_PATCH_START_STAG: 1
+    SOUTH-NORTH_PATCH_END_STAG: 42
+    BOTTOM-TOP_PATCH_START_UNSTAG: 1
+    BOTTOM-TOP_PATCH_END_UNSTAG: 40
+    BOTTOM-TOP_PATCH_START_STAG: 1
+    BOTTOM-TOP_PATCH_END_STAG: 41
+    GRID_ID: 1
+    PARENT_ID: 0
+    I_PARENT_START: 0
+    J_PARENT_START: 0
+    PARENT_GRID_RATIO: 1
+    DT: 12.0
+    CEN_LAT: 0.0
+    CEN_LON: 0.0
+    TRUELAT1: 0.0
+    TRUELAT2: 0.0
+    MOAD_CEN_LAT: 0.0
+    STAND_LON: 0.0
+    POLE_LAT: 0.0
+    POLE_LON: 0.0
+    GMT: 0.0
+    JULYR: 0
+    JULDAY: 1
+    MAP_PROJ: 0
+    MAP_PROJ_CHAR: Cartesian
+    MMINLU: 
+    NUM_LAND_CAT: 21
+    ISWATER: 0
+    ISLAKE: 0
+    ISICE: 0
+    ISURBAN: 0
+    ISOILWATER: 0
+    HYBRID_OPT: 0
+    ETAC: 0.0
+    dimensions(sizes): Time(7), DateStrLen(19), west_east(41), south_north(41), bottom_top(40), bottom_top_stag(41), soil_layers_stag(5), west_east_stag(42), south_north_stag(42), seed_dim_stag(2)
+    variables(dimensions): |S1 Times(Time, DateStrLen), float32 XLAT(Time, south_north, west_east), float32 XLONG(Time, south_north, west_east), float32 LU_INDEX(Time, south_north, west_east), float32 ZNU(Time, bottom_top), float32 ZNW(Time, bottom_top_stag), float32 ZS(Time, soil_layers_stag), float32 DZS(Time, soil_layers_stag), float32 VAR_SSO(Time, south_north, west_east), int32 BATHYMETRY_FLAG(Time), float32 U(Time, bottom_top, south_north, west_east_stag), float32 V(Time, bottom_top, south_north_stag, west_east), float32 W(Time, bottom_top_stag, south_north, west_east), float32 PH(Time, bottom_top_stag, south_north, west_east), float32 PHB(Time, bottom_top_stag, south_north, west_east), float32 T(Time, bottom_top, south_north, west_east), float32 THM(Time, bottom_top, south_north, west_east), float32 HFX_FORCE(Time), float32 LH_FORCE(Time), float32 TSK_FORCE(Time), float32 HFX_FORCE_TEND(Time), float32 LH_FORCE_TEND(Time), float32 TSK_FORCE_TEND(Time), float32 MU(Time, south_north, west_east), float32 MUB(Time, south_north, west_east), float32 NEST_POS(Time, south_north, west_east), float32 P(Time, bottom_top, south_north, west_east), float32 PB(Time, bottom_top, south_north, west_east), float32 FNM(Time, bottom_top), float32 FNP(Time, bottom_top), float32 RDNW(Time, bottom_top), float32 RDN(Time, bottom_top), float32 DNW(Time, bottom_top), float32 DN(Time, bottom_top), float32 CFN(Time), float32 CFN1(Time), int32 THIS_IS_AN_IDEAL_RUN(Time), float32 P_HYD(Time, bottom_top, south_north, west_east), float32 Q2(Time, south_north, west_east), float32 T2(Time, south_north, west_east), float32 TH2(Time, south_north, west_east), float32 PSFC(Time, south_north, west_east), float32 U10(Time, south_north, west_east), float32 V10(Time, south_north, west_east), float32 RDX(Time), float32 RDY(Time), float32 AREA2D(Time, south_north, west_east), float32 DX2D(Time, south_north, west_east), float32 RESM(Time), float32 ZETATOP(Time), float32 CF1(Time), float32 CF2(Time), float32 CF3(Time), int32 ITIMESTEP(Time), float32 XTIME(Time), float32 QVAPOR(Time, bottom_top, south_north, west_east), float32 QCLOUD(Time, bottom_top, south_north, west_east), float32 QRAIN(Time, bottom_top, south_north, west_east), float32 QICE(Time, bottom_top, south_north, west_east), float32 QSNOW(Time, bottom_top, south_north, west_east), float32 QGRAUP(Time, bottom_top, south_north, west_east), float32 QNWFA2D(Time, south_north, west_east), float32 QNIFA2D(Time, south_north, west_east), float32 QNICE(Time, bottom_top, south_north, west_east), float32 QNRAIN(Time, bottom_top, south_north, west_east), float32 QNCLOUD(Time, bottom_top, south_north, west_east), float32 QNWFA(Time, bottom_top, south_north, west_east), float32 QNIFA(Time, bottom_top, south_north, west_east), float32 QNBCA(Time, bottom_top, south_north, west_east), float32 SHDMAX(Time, south_north, west_east), float32 SHDMIN(Time, south_north, west_east), float32 SHDAVG(Time, south_north, west_east), float32 SNOALB(Time, south_north, west_east), float32 TSLB(Time, soil_layers_stag, south_north, west_east), float32 SMOIS(Time, soil_layers_stag, south_north, west_east), float32 SH2O(Time, soil_layers_stag, south_north, west_east), float32 SEAICE(Time, south_north, west_east), float32 XICEM(Time, south_north, west_east), float32 SFROFF(Time, south_north, west_east), float32 UDROFF(Time, south_north, west_east), int32 IVGTYP(Time, south_north, west_east), int32 ISLTYP(Time, south_north, west_east), float32 VEGFRA(Time, south_north, west_east), float32 GRDFLX(Time, south_north, west_east), float32 ACGRDFLX(Time, south_north, west_east), float32 ACSNOM(Time, south_north, west_east), float32 SNOW(Time, south_north, west_east), float32 SNOWH(Time, south_north, west_east), float32 CANWAT(Time, south_north, west_east), float32 SSTSK(Time, south_north, west_east), float32 WATER_DEPTH(Time, south_north, west_east), float32 COSZEN(Time, south_north, west_east), float32 LAI(Time, south_north, west_east), float32 VAR(Time, south_north, west_east), float32 O3_GFS_DU(Time, south_north, west_east), float32 MAPFAC_M(Time, south_north, west_east), float32 MAPFAC_U(Time, south_north, west_east_stag), float32 MAPFAC_V(Time, south_north_stag, west_east), float32 MAPFAC_MX(Time, south_north, west_east), float32 MAPFAC_MY(Time, south_north, west_east), float32 MAPFAC_UX(Time, south_north, west_east_stag), float32 MAPFAC_UY(Time, south_north, west_east_stag), float32 MAPFAC_VX(Time, south_north_stag, west_east), float32 MF_VX_INV(Time, south_north_stag, west_east), float32 MAPFAC_VY(Time, south_north_stag, west_east), float32 F(Time, south_north, west_east), float32 E(Time, south_north, west_east), float32 SINALPHA(Time, south_north, west_east), float32 COSALPHA(Time, south_north, west_east), float32 HGT(Time, south_north, west_east), float32 TSK(Time, south_north, west_east), float32 P_TOP(Time), int32 GOT_VAR_SSO(Time), float32 T00(Time), float32 P00(Time), float32 TLP(Time), float32 TISO(Time), float32 TLP_STRAT(Time), float32 P_STRAT(Time), float32 MAX_MSFTX(Time), float32 MAX_MSFTY(Time), float32 RAINC(Time, south_north, west_east), float32 RAINSH(Time, south_north, west_east), float32 RAINNC(Time, south_north, west_east), float32 SNOWNC(Time, south_north, west_east), float32 GRAUPELNC(Time, south_north, west_east), float32 HAILNC(Time, south_north, west_east), float32 CLDFRA(Time, bottom_top, south_north, west_east), float32 SWDOWN(Time, south_north, west_east), float32 GLW(Time, south_north, west_east), float32 SWNORM(Time, south_north, west_east), float32 TAOD5502D(Time, south_north, west_east), float32 OLR(Time, south_north, west_east), float32 XLAT_U(Time, south_north, west_east_stag), float32 XLONG_U(Time, south_north, west_east_stag), float32 XLAT_V(Time, south_north_stag, west_east), float32 XLONG_V(Time, south_north_stag, west_east), float32 ALBEDO(Time, south_north, west_east), float32 CLAT(Time, south_north, west_east), float32 ALBBCK(Time, south_north, west_east), float32 EMISS(Time, south_north, west_east), float32 NOAHRES(Time, south_north, west_east), float32 TMN(Time, south_north, west_east), float32 XLAND(Time, south_north, west_east), float32 UST(Time, south_north, west_east), float32 PBLH(Time, south_north, west_east), float32 HFX(Time, south_north, west_east), float32 QFX(Time, south_north, west_east), float32 LH(Time, south_north, west_east), float32 ACHFX(Time, south_north, west_east), float32 ACLHF(Time, south_north, west_east), float32 SNOWC(Time, south_north, west_east), float32 SR(Time, south_north, west_east), int32 SAVE_TOPO_FROM_REAL(Time), int32 ISEEDARR_SPPT(Time, seed_dim_stag), int32 ISEEDARR_SKEBS(Time, seed_dim_stag), int32 ISEEDARR_RAND_PERTURB(Time, seed_dim_stag), int32 ISEEDARRAY_SPP_CONV(Time, seed_dim_stag), int32 ISEEDARRAY_SPP_PBL(Time, seed_dim_stag), int32 ISEEDARRAY_SPP_LSM(Time, seed_dim_stag), float32 C1H(Time, bottom_top), float32 C2H(Time, bottom_top), float32 C1F(Time, bottom_top_stag), float32 C2F(Time, bottom_top_stag), float32 C3H(Time, bottom_top), float32 C4H(Time, bottom_top), float32 C3F(Time, bottom_top_stag), float32 C4F(Time, bottom_top_stag), float32 PCB(Time, south_north, west_east), float32 PC(Time, south_north, west_east), float32 LANDMASK(Time, south_north, west_east), float32 LAKEMASK(Time, south_north, west_east), float32 SST(Time, south_north, west_east), float32 SST_INPUT(Time, south_north, west_east)
+    groups: 
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>通过<code class="docutils literal notranslate"><span class="pre">Dataset.ncattrs()</span></code>可以看到前述的“运行WRF时的配置信息”有哪些。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ncfile</span><span class="o">.</span><span class="n">ncattrs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;TITLE&#39;,
+ &#39;START_DATE&#39;,
+ &#39;SIMULATION_START_DATE&#39;,
+ &#39;WEST-EAST_GRID_DIMENSION&#39;,
+ &#39;SOUTH-NORTH_GRID_DIMENSION&#39;,
+ &#39;BOTTOM-TOP_GRID_DIMENSION&#39;,
+ &#39;DX&#39;,
+ &#39;DY&#39;,
+ &#39;AERCU_OPT&#39;,
+ &#39;AERCU_FCT&#39;,
+ &#39;IDEAL_CASE&#39;,
+ &#39;DIFF_6TH_SLOPEOPT&#39;,
+ &#39;AUTO_LEVELS_OPT&#39;,
+ &#39;DIFF_6TH_THRESH&#39;,
+ &#39;DZBOT&#39;,
+ &#39;DZSTRETCH_S&#39;,
+ &#39;DZSTRETCH_U&#39;,
+ &#39;SKEBS_ON&#39;,
+ &#39;USE_Q_DIABATIC&#39;,
+ &#39;GRIDTYPE&#39;,
+ &#39;DIFF_OPT&#39;,
+ &#39;KM_OPT&#39;,
+ &#39;DAMP_OPT&#39;,
+ &#39;DAMPCOEF&#39;,
+ &#39;KHDIF&#39;,
+ &#39;KVDIF&#39;,
+ &#39;MP_PHYSICS&#39;,
+ &#39;RA_LW_PHYSICS&#39;,
+ &#39;RA_SW_PHYSICS&#39;,
+ &#39;SF_SFCLAY_PHYSICS&#39;,
+ &#39;SF_SURFACE_PHYSICS&#39;,
+ &#39;BL_PBL_PHYSICS&#39;,
+ &#39;CU_PHYSICS&#39;,
+ &#39;SF_LAKE_PHYSICS&#39;,
+ &#39;SURFACE_INPUT_SOURCE&#39;,
+ &#39;SST_UPDATE&#39;,
+ &#39;GHG_INPUT&#39;,
+ &#39;GRID_FDDA&#39;,
+ &#39;GFDDA_INTERVAL_M&#39;,
+ &#39;GFDDA_END_H&#39;,
+ &#39;GRID_SFDDA&#39;,
+ &#39;SGFDDA_INTERVAL_M&#39;,
+ &#39;SGFDDA_END_H&#39;,
+ &#39;HYPSOMETRIC_OPT&#39;,
+ &#39;USE_THETA_M&#39;,
+ &#39;GWD_OPT&#39;,
+ &#39;SF_URBAN_PHYSICS&#39;,
+ &#39;SF_SURFACE_MOSAIC&#39;,
+ &#39;SF_OCEAN_PHYSICS&#39;,
+ &#39;SLUCM_DISTRIBUTED_DRAG&#39;,
+ &#39;DISTRIBUTED_AHE_OPT&#39;,
+ &#39;SHCU_PHYSICS&#39;,
+ &#39;MFSHCONV&#39;,
+ &#39;FEEDBACK&#39;,
+ &#39;SMOOTH_OPTION&#39;,
+ &#39;SWRAD_SCAT&#39;,
+ &#39;W_DAMPING&#39;,
+ &#39;RADT&#39;,
+ &#39;BLDT&#39;,
+ &#39;CUDT&#39;,
+ &#39;AER_OPT&#39;,
+ &#39;SWINT_OPT&#39;,
+ &#39;AER_TYPE&#39;,
+ &#39;AER_AOD550_OPT&#39;,
+ &#39;AER_ANGEXP_OPT&#39;,
+ &#39;AER_SSA_OPT&#39;,
+ &#39;AER_ASY_OPT&#39;,
+ &#39;AER_AOD550_VAL&#39;,
+ &#39;AER_ANGEXP_VAL&#39;,
+ &#39;AER_SSA_VAL&#39;,
+ &#39;AER_ASY_VAL&#39;,
+ &#39;MOIST_ADV_OPT&#39;,
+ &#39;SCALAR_ADV_OPT&#39;,
+ &#39;TKE_ADV_OPT&#39;,
+ &#39;DIFF_6TH_OPT&#39;,
+ &#39;DIFF_6TH_FACTOR&#39;,
+ &#39;OBS_NUDGE_OPT&#39;,
+ &#39;BUCKET_MM&#39;,
+ &#39;BUCKET_J&#39;,
+ &#39;PREC_ACC_DT&#39;,
+ &#39;ISFTCFLX&#39;,
+ &#39;ISHALLOW&#39;,
+ &#39;ISFFLX&#39;,
+ &#39;ICLOUD&#39;,
+ &#39;ICLOUD_CU&#39;,
+ &#39;TRACER_PBLMIX&#39;,
+ &#39;SCALAR_PBLMIX&#39;,
+ &#39;YSU_TOPDOWN_PBLMIX&#39;,
+ &#39;GRAV_SETTLING&#39;,
+ &#39;CLDOVRLP&#39;,
+ &#39;IDCOR&#39;,
+ &#39;DFI_OPT&#39;,
+ &#39;NTASKS_X&#39;,
+ &#39;NTASKS_Y&#39;,
+ &#39;NTASKS_TOTAL&#39;,
+ &#39;SIMULATION_INITIALIZATION_TYPE&#39;,
+ &#39;WEST-EAST_PATCH_START_UNSTAG&#39;,
+ &#39;WEST-EAST_PATCH_END_UNSTAG&#39;,
+ &#39;WEST-EAST_PATCH_START_STAG&#39;,
+ &#39;WEST-EAST_PATCH_END_STAG&#39;,
+ &#39;SOUTH-NORTH_PATCH_START_UNSTAG&#39;,
+ &#39;SOUTH-NORTH_PATCH_END_UNSTAG&#39;,
+ &#39;SOUTH-NORTH_PATCH_START_STAG&#39;,
+ &#39;SOUTH-NORTH_PATCH_END_STAG&#39;,
+ &#39;BOTTOM-TOP_PATCH_START_UNSTAG&#39;,
+ &#39;BOTTOM-TOP_PATCH_END_UNSTAG&#39;,
+ &#39;BOTTOM-TOP_PATCH_START_STAG&#39;,
+ &#39;BOTTOM-TOP_PATCH_END_STAG&#39;,
+ &#39;GRID_ID&#39;,
+ &#39;PARENT_ID&#39;,
+ &#39;I_PARENT_START&#39;,
+ &#39;J_PARENT_START&#39;,
+ &#39;PARENT_GRID_RATIO&#39;,
+ &#39;DT&#39;,
+ &#39;CEN_LAT&#39;,
+ &#39;CEN_LON&#39;,
+ &#39;TRUELAT1&#39;,
+ &#39;TRUELAT2&#39;,
+ &#39;MOAD_CEN_LAT&#39;,
+ &#39;STAND_LON&#39;,
+ &#39;POLE_LAT&#39;,
+ &#39;POLE_LON&#39;,
+ &#39;GMT&#39;,
+ &#39;JULYR&#39;,
+ &#39;JULDAY&#39;,
+ &#39;MAP_PROJ&#39;,
+ &#39;MAP_PROJ_CHAR&#39;,
+ &#39;MMINLU&#39;,
+ &#39;NUM_LAND_CAT&#39;,
+ &#39;ISWATER&#39;,
+ &#39;ISLAKE&#39;,
+ &#39;ISICE&#39;,
+ &#39;ISURBAN&#39;,
+ &#39;ISOILWATER&#39;,
+ &#39;HYBRID_OPT&#39;,
+ &#39;ETAC&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>通过<code class="docutils literal notranslate"><span class="pre">Dataset.getncattr(attr)</span></code>可以看到前述配置信息具体的值。</p></li>
+<li><p>例如这里给出该wrfout的水平分辨率为<span class="math notranslate nohighlight">\(2 \ \mathrm{km}\)</span>。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ncfile</span><span class="o">.</span><span class="n">getncattr</span><span class="p">(</span><span class="s2">&quot;DX&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2000.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>读取变量的值<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="id4">
+<h3>基于netCDF4<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dataset.variables</span></code>以字典形式存储了变量名及其对应的具体数值。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">ncfile</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">keys()</span></code>对应所有的变量名。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">values()</span></code>对应具体值。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ncfile</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;Times&#39;, &#39;XLAT&#39;, &#39;XLONG&#39;, &#39;LU_INDEX&#39;, &#39;ZNU&#39;, &#39;ZNW&#39;, &#39;ZS&#39;, &#39;DZS&#39;, &#39;VAR_SSO&#39;, &#39;BATHYMETRY_FLAG&#39;, &#39;U&#39;, &#39;V&#39;, &#39;W&#39;, &#39;PH&#39;, &#39;PHB&#39;, &#39;T&#39;, &#39;THM&#39;, &#39;HFX_FORCE&#39;, &#39;LH_FORCE&#39;, &#39;TSK_FORCE&#39;, &#39;HFX_FORCE_TEND&#39;, &#39;LH_FORCE_TEND&#39;, &#39;TSK_FORCE_TEND&#39;, &#39;MU&#39;, &#39;MUB&#39;, &#39;NEST_POS&#39;, &#39;P&#39;, &#39;PB&#39;, &#39;FNM&#39;, &#39;FNP&#39;, &#39;RDNW&#39;, &#39;RDN&#39;, &#39;DNW&#39;, &#39;DN&#39;, &#39;CFN&#39;, &#39;CFN1&#39;, &#39;THIS_IS_AN_IDEAL_RUN&#39;, &#39;P_HYD&#39;, &#39;Q2&#39;, &#39;T2&#39;, &#39;TH2&#39;, &#39;PSFC&#39;, &#39;U10&#39;, &#39;V10&#39;, &#39;RDX&#39;, &#39;RDY&#39;, &#39;AREA2D&#39;, &#39;DX2D&#39;, &#39;RESM&#39;, &#39;ZETATOP&#39;, &#39;CF1&#39;, &#39;CF2&#39;, &#39;CF3&#39;, &#39;ITIMESTEP&#39;, &#39;XTIME&#39;, &#39;QVAPOR&#39;, &#39;QCLOUD&#39;, &#39;QRAIN&#39;, &#39;QICE&#39;, &#39;QSNOW&#39;, &#39;QGRAUP&#39;, &#39;QNWFA2D&#39;, &#39;QNIFA2D&#39;, &#39;QNICE&#39;, &#39;QNRAIN&#39;, &#39;QNCLOUD&#39;, &#39;QNWFA&#39;, &#39;QNIFA&#39;, &#39;QNBCA&#39;, &#39;SHDMAX&#39;, &#39;SHDMIN&#39;, &#39;SHDAVG&#39;, &#39;SNOALB&#39;, &#39;TSLB&#39;, &#39;SMOIS&#39;, &#39;SH2O&#39;, &#39;SEAICE&#39;, &#39;XICEM&#39;, &#39;SFROFF&#39;, &#39;UDROFF&#39;, &#39;IVGTYP&#39;, &#39;ISLTYP&#39;, &#39;VEGFRA&#39;, &#39;GRDFLX&#39;, &#39;ACGRDFLX&#39;, &#39;ACSNOM&#39;, &#39;SNOW&#39;, &#39;SNOWH&#39;, &#39;CANWAT&#39;, &#39;SSTSK&#39;, &#39;WATER_DEPTH&#39;, &#39;COSZEN&#39;, &#39;LAI&#39;, &#39;VAR&#39;, &#39;O3_GFS_DU&#39;, &#39;MAPFAC_M&#39;, &#39;MAPFAC_U&#39;, &#39;MAPFAC_V&#39;, &#39;MAPFAC_MX&#39;, &#39;MAPFAC_MY&#39;, &#39;MAPFAC_UX&#39;, &#39;MAPFAC_UY&#39;, &#39;MAPFAC_VX&#39;, &#39;MF_VX_INV&#39;, &#39;MAPFAC_VY&#39;, &#39;F&#39;, &#39;E&#39;, &#39;SINALPHA&#39;, &#39;COSALPHA&#39;, &#39;HGT&#39;, &#39;TSK&#39;, &#39;P_TOP&#39;, &#39;GOT_VAR_SSO&#39;, &#39;T00&#39;, &#39;P00&#39;, &#39;TLP&#39;, &#39;TISO&#39;, &#39;TLP_STRAT&#39;, &#39;P_STRAT&#39;, &#39;MAX_MSFTX&#39;, &#39;MAX_MSFTY&#39;, &#39;RAINC&#39;, &#39;RAINSH&#39;, &#39;RAINNC&#39;, &#39;SNOWNC&#39;, &#39;GRAUPELNC&#39;, &#39;HAILNC&#39;, &#39;CLDFRA&#39;, &#39;SWDOWN&#39;, &#39;GLW&#39;, &#39;SWNORM&#39;, &#39;TAOD5502D&#39;, &#39;OLR&#39;, &#39;XLAT_U&#39;, &#39;XLONG_U&#39;, &#39;XLAT_V&#39;, &#39;XLONG_V&#39;, &#39;ALBEDO&#39;, &#39;CLAT&#39;, &#39;ALBBCK&#39;, &#39;EMISS&#39;, &#39;NOAHRES&#39;, &#39;TMN&#39;, &#39;XLAND&#39;, &#39;UST&#39;, &#39;PBLH&#39;, &#39;HFX&#39;, &#39;QFX&#39;, &#39;LH&#39;, &#39;ACHFX&#39;, &#39;ACLHF&#39;, &#39;SNOWC&#39;, &#39;SR&#39;, &#39;SAVE_TOPO_FROM_REAL&#39;, &#39;ISEEDARR_SPPT&#39;, &#39;ISEEDARR_SKEBS&#39;, &#39;ISEEDARR_RAND_PERTURB&#39;, &#39;ISEEDARRAY_SPP_CONV&#39;, &#39;ISEEDARRAY_SPP_PBL&#39;, &#39;ISEEDARRAY_SPP_LSM&#39;, &#39;C1H&#39;, &#39;C2H&#39;, &#39;C1F&#39;, &#39;C2F&#39;, &#39;C3H&#39;, &#39;C4H&#39;, &#39;C3F&#39;, &#39;C4F&#39;, &#39;PCB&#39;, &#39;PC&#39;, &#39;LANDMASK&#39;, &#39;LAKEMASK&#39;, &#39;SST&#39;, &#39;SST_INPUT&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>使用变量名进行索引即可得到对应的元数据。</p></li>
+<li><p>这里以云水混合比（QCLOUD）为例。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Time,</span> <span class="pre">bottom_top,</span> <span class="pre">south_north,</span> <span class="pre">west_east</span></code>表示数据是四维的（时间、高度、南北、东西）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description:</span> <span class="pre">Cloud</span> <span class="pre">water</span> <span class="pre">mixing</span> <span class="pre">ratio</span></code>交代了物理意义是云水混合比。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">units:</span> <span class="pre">kg</span> <span class="pre">kg-1</span></code>说明单位为<span class="math notranslate nohighlight">\(\mathrm{kg \ kg^{-1}}\)</span>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coordinates:</span> <span class="pre">XLONG</span> <span class="pre">XLAT</span> <span class="pre">XTIME</span></code>指时间、南北、东西的具体数值保存在了<code class="docutils literal notranslate"><span class="pre">XLONG</span></code>（经度）<code class="docutils literal notranslate"><span class="pre">XLAT</span></code>（纬度）<code class="docutils literal notranslate"><span class="pre">XTIME</span></code>（时间）三个变量内。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">current</span> <span class="pre">shape</span> <span class="pre">=</span> <span class="pre">(7,</span> <span class="pre">40,</span> <span class="pre">41,</span> <span class="pre">41)</span></code>对应前述的“四维”，即在时间维有7个节点，在垂直方向上分了40层，水平的东西南北各分了41个区域。</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ncfile</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;QCLOUD&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;netCDF4._netCDF4.Variable&#39;&gt;
+float32 QCLOUD(Time, bottom_top, south_north, west_east)
+    FieldType: 104
+    MemoryOrder: XYZ
+    description: Cloud water mixing ratio
+    units: kg kg-1
+    stagger: 
+    coordinates: XLONG XLAT XTIME
+unlimited dimensions: Time
+current shape = (7, 40, 41, 41)
+filling on, default _FillValue of 9.969209968386869e+36 used
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>使用变量名得到元数据后可以继续进行索引得到多维数组。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ncfile</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;QCLOUD&quot;</span><span class="p">][:]</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(numpy.ma.core.MaskedArray,
+ (7, 40, 41, 41),
+ masked_array(
+   data=[[[[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          ...,
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+         [[[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          ...,
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+         [[[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          ...,
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+         ...,
+ 
+ 
+         [[[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          ...,
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+         [[[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          ...,
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+         [[[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          ...,
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]],
+ 
+          [[0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]]]],
+   mask=False,
+   fill_value=1e+20,
+   dtype=float32))
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>支持索引即也支持切片。</p></li>
+<li><p>这里所得到的是第4时刻、第21垂直高度层的数据（从0开始计数）。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ncfile</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;QCLOUD&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(numpy.ma.core.MaskedArray,
+ (41, 41),
+ masked_array(
+   data=[[0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         ...,
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.]],
+   mask=False,
+   fill_value=1e+20,
+   dtype=float32))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="wrf-python">
+<h3>基于WRF-Python<a class="headerlink" href="#wrf-python" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>另一种常见的是使用WRF-Python的<code class="docutils literal notranslate"><span class="pre">getvar</span></code>读取数据。</p>
+<ul>
+<li><p>这样可以读取一些wrfout本身没有的诊断量，例如<code class="docutils literal notranslate"><span class="pre">z</span></code>（高度，单位：<span class="math notranslate nohighlight">\(\mathrm{m}\)</span>）。<br />
+<code class="docutils literal notranslate"><span class="pre">getvar</span></code>会自动计算这些量的值。<br />
+更多变量详见<a class="reference external" href="https://wrf-python.readthedocs.io/en/latest/user_api/generated/wrf.getvar.html">https://wrf-python.readthedocs.io/en/latest/user_api/generated/wrf.getvar.html</a></p></li>
+<li><p>不同<code class="docutils literal notranslate"><span class="pre">.nc</span></code>文件里的变量名有可能不一样。<br />
+例如“地形高度”会记为<code class="docutils literal notranslate"><span class="pre">HGT</span></code>或<code class="docutils literal notranslate"><span class="pre">ter</span></code>。<br />
+<code class="docutils literal notranslate"><span class="pre">getvar</span></code>不会受此影响，不需要针对不同<code class="docutils literal notranslate"><span class="pre">.nc</span></code>的命名方式专门修改脚本。</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getvar(wrfin,</span> <span class="pre">varname)</span></code>将返回包含元数据的对象。<br />
+通过<code class="docutils literal notranslate"><span class="pre">getvar(wrfin,</span> <span class="pre">varname).to_numpy()</span></code>或<code class="docutils literal notranslate"><span class="pre">getvar(wrfin,</span> <span class="pre">varname).values</span></code>可以得到对应的多维数组。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">wrf</span><span class="w"> </span><span class="kn">import</span> <span class="n">getvar</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;QCLOUD&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(numpy.ndarray,
+ (40, 41, 41),
+ array([[[0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         ...,
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.]],
+ 
+        [[0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         ...,
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.]],
+ 
+        [[0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         ...,
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.]],
+ 
+        ...,
+ 
+        [[0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         ...,
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.]],
+ 
+        [[0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         ...,
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.]],
+ 
+        [[0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         ...,
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.],
+         [0., 0., 0., ..., 0., 0., 0.]]], dtype=float32))
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>上一代码块得到的是三维数组而非四维。</p></li>
+<li><p>原因在于<code class="docutils literal notranslate"><span class="pre">getvar</span></code>有一个指定时间索引的参数<code class="docutils literal notranslate"><span class="pre">timeidx</span></code>。</p></li>
+<li><p>默认情况下<code class="docutils literal notranslate"><span class="pre">timeidx=0</span></code>，对应第0时刻的数组。</p></li>
+<li><p>如果想要读取所有时刻的数组，就需要额外导入<code class="docutils literal notranslate"><span class="pre">ALL_TIMES</span></code>并设置<code class="docutils literal notranslate"><span class="pre">timeidx=ALL_TIMES</span></code>。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">wrf</span><span class="w"> </span><span class="kn">import</span> <span class="n">ALL_TIMES</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;QCLOUD&quot;</span><span class="p">,</span> <span class="n">timeidx</span><span class="o">=</span><span class="n">ALL_TIMES</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(numpy.ndarray,
+ (7, 40, 41, 41),
+ array([[[[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         ...,
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+        [[[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         ...,
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+        [[[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         ...,
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+        ...,
+ 
+ 
+        [[[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         ...,
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+        [[[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         ...,
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]]],
+ 
+ 
+        [[[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         ...,
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]],
+ 
+         [[0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.],
+          [0., 0., 0., ..., 0., 0., 0.]]]], dtype=float32))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="main04_ndarray.html" class="btn btn-neutral float-left" title="多维数组" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Matplotlib/index.html" class="btn btn-neutral float-right" title="Matplotlib" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, XiaAnren。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

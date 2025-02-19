@@ -15,7 +15,7 @@ author = 'XiaAnren'
 
 extensions = ['myst_nb']
 nb_execution_mode = 'off'
-myst_enable_extensions = ['dollarmath', 'amsmath']
+myst_enable_extensions = ['dollarmath', 'amsmath', 'colon_fence']
 
 templates_path = ['_templates']
 exclude_patterns = []

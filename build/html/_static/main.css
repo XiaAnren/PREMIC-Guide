@@ -3,3 +3,5 @@
     background-color: transparent;
     font-size: 95%;
 }
+.highlight .c1 { font-style: normal; } /* Comment.Single */
+.highlight .sd { font-style: normal; } /* Literal.String.Doc */

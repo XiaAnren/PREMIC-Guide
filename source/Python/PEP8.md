@@ -37,7 +37,7 @@ from netCDF4 import Dataset
 import mymodule
 ```
 
-* [命名](https://www.bilibili.com/video/BV1RT411G73z)：
+* 命名（[讲解视频](https://www.bilibili.com/video/BV1RT411G73z)）：
   * 驼峰命名法（`CamelCase`）：类；
   * 大写下划线（`UPPER_UNDERSCORE`）：常量；
   * 小写下划线（`lower_underscore`）：函数、变量。

@@ -19,10 +19,12 @@
       <script src="../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/translations.js?v=beaddf03"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
-    <link rel="next" title="\(\LaTeX\)" href="../../LaTeX/index.html" />
+    <link rel="next" title="绘图流程" href="plt01_basic.html" />
     <link rel="prev" title="netCDF4" href="../main/main05_nc.html" /> 
 </head>
 
@@ -52,7 +54,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../PEP8.html">编程规范</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../main/index.html">基本概述</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Matplotlib</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Matplotlib</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plt01_basic.html">绘图流程</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../LaTeX/index.html"><span class="math notranslate nohighlight">\(\LaTeX\)</span></a></li>
@@ -88,10 +93,26 @@
 <h1>Matplotlib<a class="headerlink" href="#matplotlib" title="Link to this heading"></a></h1>
 <p>最好的学习资料永远是<a class="reference external" href="https://matplotlib.org/stable/users/index.html">官方文档</a>。</p>
 <p>包括<a class="reference external" href="https://matplotlib.org/stable/users/explain/quick_start.html">快速上手</a>、<a class="reference external" href="https://matplotlib.org/stable/plot_types/index.html">图表类型</a>、<a class="reference external" href="https://matplotlib.org/stable/users/explain/axes/legend_guide.html">图例教程</a>、<a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">内置colormap</a>（还有NCL的<a class="reference external" href="https://www.ncl.ucar.edu/Document/Graphics/color_table_gallery.shtml">内置colormap</a>，可以导入<code class="docutils literal notranslate"><span class="pre">cmaps</span></code>以使用）、<a class="reference external" href="https://matplotlib.org/stable/users/explain/animations/animations.html">动图教程</a>等等。</p>
-<p>更多的请留待自行探索。</p>
+<p>更多的请留待自行探索，当然也非常推荐借助AI等工具来辅助学习。</p>
+<p>相比于“教程”，这里更偏“工具箱”属性。</p>
+<p>即在绘图时有哪些功能需要使用可以直接从这里拿取。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>本部分暂未完成，仍在施工中…</p>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plt01_basic.ipynb</span></code>：总体绘图流程，包括单张子图、多张子图、多张子画布</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="plt01_basic.html">绘图流程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plt01_basic.html#id2">准备数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plt01_basic.html#id3">单张子图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plt01_basic.html#id4">多张子图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plt01_basic.html#id5">多个子画布</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </section>
 
@@ -100,7 +121,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../main/main05_nc.html" class="btn btn-neutral float-left" title="netCDF4" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../../LaTeX/index.html" class="btn btn-neutral float-right" title="\(\LaTeX\)" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="plt01_basic.html" class="btn btn-neutral float-right" title="绘图流程" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>绘图流程 &mdash; PREMIC Guide  文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/main.css?v=5ef77c96" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=7d86a446"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="\(\LaTeX\)" href="../../LaTeX/index.html" />
+    <link rel="prev" title="Matplotlib" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PREMIC Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Basic/index.html">基本指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Article.html">文献查找与下载</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../PEP8.html">编程规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../main/index.html">基本概述</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Matplotlib</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">绘图流程</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">准备数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">单张子图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">多张子图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">多个子画布</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../LaTeX/index.html"><span class="math notranslate nohighlight">\(\LaTeX\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../How.html">这个文档是怎么做的</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PREMIC Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Python</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Matplotlib</a></li>
+      <li class="breadcrumb-item active">绘图流程</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/Python/Matplotlib/plt01_basic.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>绘图流程<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>前面提到过有时候需要基于<code class="docutils literal notranslate"><span class="pre">Axes</span></code>同时绘制多个子图，那么不妨在即使只有一张子图的情况下也使用相同的绘制流程。<br />
+即创建画布与子图，再分别在各个子图上进行绘制。<br />
+这样的好处在于流程以及所使用的方法都是固定的，不用专门在“绘制一张子图”与“绘制多张子图”之间转换思维方式。<br />
+另见<a class="reference external" href="https://matplotlib.org/stable/users/explain/quick_start.html#coding-styles">Matplotlib代码风格</a>。</p></li>
+<li><p>这里将具体展示单张子图、多张子图、多张子画布的绘制。<br />
+可以看到总体的流程都基本一致。</p></li>
+</ul>
+<section id="id2">
+<h2>准备数据<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>准备数据的过程并不是这里的重点。</p></li>
+<li><p>因此只简单创建了<span class="math notranslate nohighlight">\(y = (x - a)^2 + b\)</span>所对应的<code class="docutils literal notranslate"><span class="pre">x</span></code>与<code class="docutils literal notranslate"><span class="pre">y</span></code>，并基于此绘制折线图以作示例。<br />
+<span class="math notranslate nohighlight">\(a\)</span>与<span class="math notranslate nohighlight">\(b\)</span>在绘制单张子图时默认为<span class="math notranslate nohighlight">\(0\)</span>，在多张子图时会有所调整。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_xy</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;准备绘图数据.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a (int, optional): 抛物线顶点的横坐标. Defaults to 0.</span>
+<span class="sd">        b (int, optional): 抛物线顶点的纵坐标. Defaults to 0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[np.ndarray]: x轴、y轴的绘图数据.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">51</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>单张子图<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>以下绘制流程可以概括为：</p>
+<ul class="simple">
+<li><p>创建画布与子图</p>
+<ul>
+<li><p>设置画布大小</p></li>
+<li><p>设置子图布局</p></li>
+</ul>
+</li>
+<li><p>准备数据</p></li>
+<li><p>绘制图像</p>
+<ul>
+<li><p>绘制基本图像（这里是折线图，也可以是散点图、散点密度图、阶梯图等）</p></li>
+<li><p>美化（即下述无脑使用的三行）</p></li>
+<li><p>设置x轴、y轴（这里是范围与标签，还可以设置对数比例尺）</p></li>
+<li><p>添加元素（图例、文本等）</p></li>
+</ul>
+</li>
+<li><p>展示或保存图像</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==创建画布与子图==</span>
+<span class="c1"># 创建画布</span>
+<span class="c1"># 设定该画布的横向宽度与纵向高度分别为6和5</span>
+<span class="c1"># 个人习惯将有m行n列子图的画布设定为宽6n高5m</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1"># 在该画布内创建了1行1列的子图</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># ==准备数据==</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">get_xy</span><span class="p">()</span>
+
+<span class="c1"># ==绘制图像==</span>
+<span class="c1"># 传入x轴、y轴数据并绘制折线图</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>  <span class="c1"># x轴数据</span>
+    <span class="n">y</span><span class="p">,</span>  <span class="c1"># y轴数据</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>  <span class="c1"># 线条样式设置为实线（默认是实线，删掉这行并不会影响结果）</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>  <span class="c1"># 线条颜色设置为红色（默认是蓝色）</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  <span class="c1"># 线条透明度设置为0.5</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span>  <span class="c1"># 线条在图例中的标签（如果不需要图例的话可以删掉这行）</span>
+<span class="p">)</span>
+<span class="c1"># 以下是个人绘制此类图常常无脑使用的三行</span>
+<span class="c1"># 分别是：添加网格线、开启次刻度标记、设置刻度的字体大小</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># 设置x轴、y轴范围</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># 设置x轴、y轴标签及其字体大小</span>
+<span class="c1"># （这里是随便假定的标签）</span>
+<span class="c1"># 文本使用了LaTeX，能够方便物理量单位中上标的展示</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Time </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( s </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Velocity </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( m </span><span class="se">\\</span><span class="s2"> s^{-1} </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># 添加图例</span>
+<span class="c1"># 这里的位置以子图左下角为(0, 0)，子图右上角为(1, 1)</span>
+<span class="c1"># 平常画图的时候按需调整位置</span>
+<span class="c1"># 其他参数可以不用管</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+    <span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="mf">0.715</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">),</span>  <span class="c1"># 位置</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>  <span class="c1"># 字体大小</span>
+    <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>  <span class="c1"># 背景颜色</span>
+    <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># 边框透明度</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>  <span class="c1"># 边框颜色</span>
+<span class="p">)</span>
+<span class="c1"># 添加文本注释</span>
+<span class="c1"># 这里的transform=ax.transAxes使得文本位置(x, y)：</span>
+<span class="c1"># 在子图左下角是(0, 0)，在子图右上角是(1, 1)</span>
+<span class="c1"># 文本框样式里设置了：背景颜色、透明度、边框线宽（linewidth）</span>
+<span class="c1"># 平常画图的时候按需调整位置、文本内容、对齐方式</span>
+<span class="c1"># 其他参数可以不用管</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span>  <span class="c1"># 文本位置的x坐标</span>
+    <span class="n">y</span><span class="o">=</span><span class="mf">0.975</span><span class="p">,</span>  <span class="c1"># 文本位置的y坐标</span>
+    <span class="n">s</span><span class="o">=</span><span class="s2">&quot;(a)&quot;</span><span class="p">,</span>  <span class="c1"># 文本内容</span>
+    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>  <span class="c1"># 水平方向上左对齐</span>
+    <span class="n">va</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span>  <span class="c1"># 垂直方向上顶部对齐</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>  <span class="c1"># 字体大小</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>  <span class="c1"># 文本位置以子图的宽与高为单位一</span>
+    <span class="n">bbox</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;lw&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>  <span class="c1"># 文本框样式</span>
+<span class="p">)</span>
+
+<span class="c1"># ==展示图像==</span>
+<span class="c1"># 个人暂时不常用</span>
+<span class="c1"># 在这里使用只是因为没有保存图像的需求</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># ==保存图像==</span>
+<span class="c1"># 更多时候请使用fig.savefig(&quot;name.png&quot;, bbox_inches=&quot;tight&quot;)将图像保存起来</span>
+<span class="c1"># （注意文件保存路径）</span>
+<span class="c1"># 这里的bbox_inches=&quot;tight&quot;可以自动裁剪图像以最小化子图周围的空白区域</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/49b25ab95d88ef68f2d81cbe9a8de1e43bd48ed7360ca604dbc48fbcaf4d8ee9.png" src="../../_images/49b25ab95d88ef68f2d81cbe9a8de1e43bd48ed7360ca604dbc48fbcaf4d8ee9.png" />
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>多张子图<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>所有子图都会有的重复操作可以进行整合，简化代码的同时也方便进行修改。<br />
+以下函数所整合的内容包括（括号内标示了与上述代码块的异同点）：</p>
+<ul class="simple">
+<li><p>是否显示标签（额外添加的设置，否则每个子图都重复显示相同的刻度标签会很冗余）</p></li>
+<li><p>美化（与前一致）</p></li>
+<li><p>设置x轴、y轴（只设置了范围，标签在画布上统一添加）</p></li>
+<li><p>添加元素（只添加了文本，图例在b1子图上会挡住线条所以暂时删去）</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ax2ax</span><span class="p">(</span>
+    <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">bottom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;规范化子图.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax (plt.Axes): 输入子图.</span>
+<span class="sd">        text (str): 待添加的文本.</span>
+<span class="sd">        bottom (bool, optional): 是否显示子图底部的刻度标签. Defaults to True.</span>
+<span class="sd">        left (bool, optional): 是否显示子图左侧的刻度标签. Defaults to True.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># bottom == True时，子图底部显示x轴默认的刻度标签</span>
+    <span class="c1"># bottom == False时，子图底部不显示x轴的刻度标签</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bottom</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+    <span class="c1"># left == True时，子图左侧显示y轴默认的刻度标签</span>
+    <span class="c1"># left == False时，子图左侧不显示y轴的刻度标签</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">left</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+    <span class="c1"># 下述代码的具体含义都能在上面的代码块中找到</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="mf">0.975</span><span class="p">,</span>
+        <span class="n">s</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+        <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+        <span class="n">va</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+        <span class="n">bbox</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;lw&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==创建画布与子图==</span>
+<span class="c1"># 创建画布并设定大小</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="c1"># 调整子图间距</span>
+<span class="c1"># wspace、hspace分别是各个子图间在横向宽度（width）与纵向高度（height）上的间距</span>
+<span class="c1"># 默认值0.2</span>
+<span class="c1"># 此外还有参数left、right、bottom、top</span>
+<span class="c1"># 分别是子图与画布左右、底顶的间距</span>
+<span class="c1"># 碎碎念：</span>
+<span class="c1"># 丢掉PPT和画板</span>
+<span class="c1"># 子图间距不合适的时候在这里调整就行</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.075</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="c1"># 创建2行2列的子图</span>
+<span class="c1"># 这样得到的`axes`是2行2列的多维数组</span>
+<span class="c1"># 里面的每个元素都是单个子图，即上面的`ax`</span>
+<span class="c1"># 此外还有参数sharex、sharey</span>
+<span class="c1"># 表示各个子图是否共享x轴或y轴的范围</span>
+<span class="c1"># 选择共享时可以设置具体方式</span>
+<span class="c1"># 默认值False，即不共享</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># ==添加公共标签==</span>
+<span class="c1"># （仅在有需求的时候添加公共标签）</span>
+<span class="c1"># 添加公共的x轴标签并调整位置与字号</span>
+<span class="c1"># 默认x=0.5、y=0.01</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">supxlabel</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="mf">0.5125</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">t</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Time </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( s </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># 添加公共的y轴标签并调整位置字号</span>
+<span class="c1"># 默认x=0.02、y=0.5</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">supylabel</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">t</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Velocity </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( m </span><span class="se">\\</span><span class="s2"> s^{-1} </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># ==绘制图像==</span>
+<span class="c1"># 遍历2行（从0开始索引）</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="c1"># 遍历2列（从0开始索引）</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+        <span class="c1"># 第row行、第col列</span>
+        <span class="c1"># 得到的绘图数据是以(row, col)为顶点的抛物线</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">get_xy</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+        <span class="c1"># 从`axes`索引得到单个子图</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span>
+        <span class="c1"># 与上面一样的绘制折线图</span>
+        <span class="c1"># 区别只有删去了用于在图例中展示的标签</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">,</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># 规范化子图</span>
+        <span class="c1"># 即：将一些重复操作整合起来</span>
+        <span class="c1"># 这里的文本内容包含两部分</span>
+        <span class="c1"># chr(97)返回97对应的ASCII字符，即“a”</span>
+        <span class="c1"># 因此row = 0时得到“a”，row = 1时得到“b”</span>
+        <span class="c1"># 另一部分col = 0时得到“1”，col = 1时得到“2”</span>
+        <span class="n">ax2ax</span><span class="p">(</span>
+            <span class="n">ax</span><span class="p">,</span>  <span class="c1"># 传入子图</span>
+            <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">97</span><span class="p">)</span><span class="si">}{</span><span class="n">col</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>  <span class="c1"># 传入左上角需要标示的文本内容</span>
+            <span class="n">bottom</span><span class="o">=</span><span class="p">(</span><span class="n">row</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># 最后一行显示底部刻度标签</span>
+            <span class="n">left</span><span class="o">=</span><span class="p">(</span><span class="n">col</span> <span class="o">==</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># 第一列显示左侧刻度标签</span>
+        <span class="p">)</span>
+
+<span class="c1"># ==展示图像==</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/0064d213a879af484da535fc3d2ad698559087d87290e1e6022029e7edfdc269.png" src="../../_images/0064d213a879af484da535fc3d2ad698559087d87290e1e6022029e7edfdc269.png" />
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>多个子画布<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>目前个人遇到的、需要使用子画布的情形有：</p>
+<ul class="simple">
+<li><p>不同子图有不同的投影方式（投影方式会在后续绘制wrfout的二维平面图时用到，并且只能在使用<code class="docutils literal notranslate"><span class="pre">fig.subplots()</span></code>创建子图时统一设置）</p></li>
+<li><p>绘制出来的子图由于种种原因高度不一致</p></li>
+</ul>
+<p>以下仅展示创建画布、子画布、子图的过程及效果，并不绘制具体图像。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==创建画布、子画布、子图==</span>
+<span class="c1"># 创建画布并设定大小</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="c1"># 创建1行2列的子画布并设置横向宽度的间距</span>
+<span class="c1"># 类似`axes`，得到的也是1行2列的多维数组</span>
+<span class="c1"># 里面的每个元素都是单个子画布，即下面的`subfig`</span>
+<span class="n">subfigs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subfigures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=-</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="c1"># 对于第一个子画布...</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># 创建一个子图</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># “老三样”</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># 对于第二个子画布...</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># 调整内部子图的纵向高度间距</span>
+<span class="n">subfig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.125</span><span class="p">)</span>
+<span class="c1"># 设置背景颜色为None，否则默认的白色会盖住其他子画布</span>
+<span class="n">subfig</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+<span class="c1"># 创建2行1列的子图</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># 对于其中的每个子图都“老三样”</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># ==展示图像==</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/74b40622d5c0346cd9d86afcde76726c423f42d55e07be1ab10ccf5ebb9c6c25.png" src="../../_images/74b40622d5c0346cd9d86afcde76726c423f42d55e07be1ab10ccf5ebb9c6c25.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="index.html" class="btn btn-neutral float-left" title="Matplotlib" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../LaTeX/index.html" class="btn btn-neutral float-right" title="\(\LaTeX\)" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, XiaAnren。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>wrfout绘图 &mdash; PREMIC Guide  文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/main.css?v=5ef77c96" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=7d86a446"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="\(\LaTeX\)" href="../../LaTeX/index.html" />
+    <link rel="prev" title="绘图流程" href="plt01_basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PREMIC Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Basic/index.html">基本指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Article.html">文献查找与下载</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../PEP8.html">编程规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../main/index.html">基本概述</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Matplotlib</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plt01_basic.html">绘图流程</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">wrfout绘图</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">数据处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">添加省界线</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">伪彩色图+矢量图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">填色等值线图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">伪彩色图+矢量图+剖面图</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../LaTeX/index.html"><span class="math notranslate nohighlight">\(\LaTeX\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../How.html">这个文档是怎么做的</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PREMIC Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Python</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Matplotlib</a></li>
+      <li class="breadcrumb-item active">wrfout绘图</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/Python/Matplotlib/plt03_nc.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="wrfout">
+<h1>wrfout绘图<a class="headerlink" href="#wrfout" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>有了前面的积累现在可以正式对wrfout进行后处理绘图了。</p></li>
+<li><p>以下将以庐山地区预报场为例，分别绘制：伪彩色图、填色等值线图、矢量图、剖面图。</p></li>
+<li><p>实际进行后处理绘图时，请按需选择伪彩色图或填色等值线图。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.crs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ccrs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.feature</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cfeature</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cmaps</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cartopy.io.shapereader</span><span class="w"> </span><span class="kn">import</span> <span class="n">Reader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cartopy.mpl.geoaxes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoAxes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cartopy.mpl.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">LatitudeFormatter</span><span class="p">,</span> <span class="n">LongitudeFormatter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">netCDF4</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">wrf</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CoordPair</span><span class="p">,</span>
+    <span class="n">get_cartopy</span><span class="p">,</span>
+    <span class="n">getvar</span><span class="p">,</span>
+    <span class="n">interplevel</span><span class="p">,</span>
+    <span class="n">interpline</span><span class="p">,</span>
+    <span class="n">latlon_coords</span><span class="p">,</span>
+    <span class="n">vertcross</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+    <span class="s2">&quot;/public/home/premopr/data/archive/GERGLS/GFS_WCTRL/2024032800&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;wrfout_d03_2024-03-28_00:00:00.GFS_WCTRL_P+FCST.p&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h2>数据处理<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>数据处理部分将得到后续所需的<strong>所有</strong>变量。</p>
+<ul class="simple">
+<li><p>伪彩色图+矢量图：地面累计降水、<span class="math notranslate nohighlight">\(700 \ \mathrm{hPa}\)</span>风场。</p></li>
+<li><p>填色等值线图：地面累计降水、<span class="math notranslate nohighlight">\(700 \ \mathrm{hPa}\)</span>雷达反射率。</p></li>
+<li><p>伪彩色图+矢量图+剖面图：<span class="math notranslate nohighlight">\(700 \ \mathrm{hPa}\)</span>云水混合比、<span class="math notranslate nohighlight">\(700 \ \mathrm{hPa}\)</span>风场、指定剖面的云水混合比与地面高度。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==读取wrfout文件==</span>
+<span class="n">ncfile</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">filepath</span> <span class="o">/</span> <span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># ==读取变量==</span>
+<span class="c1"># 以下二维变量的坐标是南北+东西</span>
+<span class="c1"># 三维变量的坐标则是底顶+南北+东西</span>
+<span class="c1"># 地面累计降水（二维变量，单位：mm）</span>
+<span class="n">rain</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;RAINNC&quot;</span><span class="p">)</span>
+<span class="c1"># 质量网格点上的风速（三维变量，单位：m s-1）</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;ua&quot;</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;va&quot;</span><span class="p">)</span>
+<span class="c1"># 气压（三维变量，单位：hPa）</span>
+<span class="n">pres</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;pressure&quot;</span><span class="p">)</span>
+<span class="c1"># 雷达反射率（三维变量，单位：dBZ）</span>
+<span class="n">dbz</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;dbz&quot;</span><span class="p">)</span>
+<span class="c1"># 云水混合比（三维变量，单位：kg kg-1）</span>
+<span class="c1"># 乘1000后单位为g kg-1</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;QCLOUD&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
+<span class="c1"># 地面高度（二维变量，单位：m）</span>
+<span class="n">ter</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;ter&quot;</span><span class="p">)</span>
+<span class="c1"># 格点海拔高度（三维变量，单位：m）</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">getvar</span><span class="p">(</span><span class="n">ncfile</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">)</span>
+
+<span class="c1"># ==读取元数据==</span>
+<span class="c1"># 经纬度</span>
+<span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">latlon_coords</span><span class="p">(</span><span class="n">rain</span><span class="p">)</span>
+<span class="c1"># 投影</span>
+<span class="n">proj</span> <span class="o">=</span> <span class="n">get_cartopy</span><span class="p">(</span><span class="n">rain</span><span class="p">)</span>
+
+<span class="c1"># ==设置剖面起止点的经纬度==</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">CoordPair</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mf">28.5</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="mi">116</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">CoordPair</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="mi">117</span><span class="p">)</span>
+
+<span class="c1"># ==插值到指定剖面==</span>
+<span class="c1"># 将云水混合比以海拔高度为垂直坐标插值到指定剖面</span>
+<span class="c1"># levels表示垂直坐标的分层方式</span>
+<span class="c1"># 这里是最低0m、最高20000m，一共分101层，即每层间距200m</span>
+<span class="c1"># 正常情况下可以忽略掉该参数</span>
+<span class="c1"># 但没有levels出来的垂直坐标全是nan（原因不明）</span>
+<span class="n">qc_cross</span> <span class="o">=</span> <span class="n">vertcross</span><span class="p">(</span>
+    <span class="n">qc</span><span class="p">,</span>
+    <span class="n">z</span><span class="p">,</span>
+    <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">101</span><span class="p">),</span>
+    <span class="n">wrfin</span><span class="o">=</span><span class="n">ncfile</span><span class="p">,</span>
+    <span class="n">start_point</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+    <span class="n">end_point</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
+    <span class="n">latlon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">meta</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># 将地面高度插值到指定剖面</span>
+<span class="n">ter_cross</span> <span class="o">=</span> <span class="n">interpline</span><span class="p">(</span><span class="n">ter</span><span class="p">,</span> <span class="n">wrfin</span><span class="o">=</span><span class="n">ncfile</span><span class="p">,</span> <span class="n">start_point</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end_point</span><span class="o">=</span><span class="n">end</span><span class="p">)</span>
+
+<span class="c1"># ==插值到700hPa等压面==</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">interplevel</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">pres</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">interplevel</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">pres</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+<span class="n">dbz</span> <span class="o">=</span> <span class="n">interplevel</span><span class="p">(</span><span class="n">dbz</span><span class="p">,</span> <span class="n">pres</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">interplevel</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">pres</span><span class="p">,</span> <span class="mi">700</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h2>添加省界线<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>美观起见有时会在绘制wrfout时添加对应的省界线。</p></li>
+<li><p>以下是固定的读取省界线数据并添加到子图上的代码。</p></li>
+<li><p>在可能需要自定义修改的地方添加了注释，其余部分一般不用改动。</p></li>
+<li><p>这次的绘图区域没有包括海岸线，如果有需要请添加<code class="docutils literal notranslate"><span class="pre">ax.coastlines()</span></code>。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">:</span> <span class="n">GeoAxes</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">bottom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;为子图添加省界线.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax (GeoAxes): 输入子图.</span>
+<span class="sd">        bottom (bool, optional): 是否显示子图底部的刻度标签. Defaults to True.</span>
+<span class="sd">        left (bool, optional): 是否显示子图左侧的刻度标签. Defaults to True.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">bottom</span><span class="p">:</span>
+        <span class="n">bottom</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span>
+    <span class="k">if</span> <span class="n">left</span><span class="p">:</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+    <span class="n">china_map</span> <span class="o">=</span> <span class="n">cfeature</span><span class="o">.</span><span class="n">ShapelyFeature</span><span class="p">(</span>
+        <span class="n">Reader</span><span class="p">(</span>
+            <span class="s2">&quot;/public/home/XiaAnRen/share/data/ChinaShp202407/China_p.shp&quot;</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">geometries</span><span class="p">(),</span>
+        <span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">china_map</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span>
+        <span class="n">draw_labels</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;bottom&quot;</span><span class="p">:</span> <span class="n">bottom</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">left</span><span class="p">},</span>
+        <span class="n">dms</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">x_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">rotate_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+        <span class="n">xlabel_style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">},</span>
+        <span class="n">ylabel_style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">},</span>
+        <span class="n">xformatter</span><span class="o">=</span><span class="n">LongitudeFormatter</span><span class="p">(),</span>
+        <span class="n">yformatter</span><span class="o">=</span><span class="n">LatitudeFormatter</span><span class="p">(),</span>
+        <span class="n">xlocs</span><span class="o">=</span><span class="p">[</span><span class="mf">114.5</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span> <span class="mf">115.5</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mf">116.5</span><span class="p">,</span> <span class="mi">117</span><span class="p">],</span>  <span class="c1"># x轴刻度</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;geo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>伪彩色图+矢量图<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>可用的colormap包括：</p>
+<ul class="simple">
+<li><p>Matplotlib内置的colormap：<a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">https://matplotlib.org/stable/users/explain/colors/colormaps.html</a><br />
+使用时直接<code class="docutils literal notranslate"><span class="pre">cmap=&quot;jet&quot;</span></code></p></li>
+<li><p>NCL内置的colormap：<a class="reference external" href="https://www.ncl.ucar.edu/Document/Graphics/color_table_gallery.shtml">https://www.ncl.ucar.edu/Document/Graphics/color_table_gallery.shtml</a><br />
+可以导入<code class="docutils literal notranslate"><span class="pre">cmaps</span></code>以使用</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==创建画布与子图==</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1"># 创建子图时额外规定了投影方式</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">})</span>
+
+<span class="c1"># ==添加省界线==</span>
+<span class="n">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="c1"># ==绘制伪彩色图==</span>
+<span class="c1"># 绘制地面累计降水的伪彩色图</span>
+<span class="n">pcm</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+    <span class="n">lon</span><span class="p">,</span>  <span class="c1"># x轴是经度</span>
+    <span class="n">lat</span><span class="p">,</span>  <span class="c1"># y轴是纬度</span>
+    <span class="n">rain</span><span class="p">,</span>  <span class="c1"># 按照该变量的值进行上色</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">cmaps</span><span class="o">.</span><span class="n">WhiteBlueGreenYellowRed</span><span class="p">,</span>  <span class="c1"># 选用colormap</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">80</span><span class="p">),</span>  <span class="c1"># 规定colorbar的最大最小值</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>  <span class="c1"># 必须要有的投影到平面坐标系的坐标变换</span>
+<span class="p">)</span>
+<span class="c1"># 添加colorbar</span>
+<span class="c1"># orientation可以设定为vertical（垂直）或horizontal（水平）</span>
+<span class="c1"># 默认是垂直</span>
+<span class="c1"># cax部分的四个参数分别代表：</span>
+<span class="c1"># 相对左边界的距离、相对下边界的距离、colorbar的宽度、colorbar的高度</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">pcm</span><span class="p">,</span>  <span class="c1"># 绑定对应关系</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>  <span class="c1"># 垂直放置</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.875</span><span class="p">,</span> <span class="mf">0.175</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]),</span>  <span class="c1"># 位置和大小</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>  <span class="c1"># 刻度</span>
+<span class="p">)</span>
+<span class="c1"># 设置标签文本</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Precipitation </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( mm </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># 设置刻度字号</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># ==绘制矢量图==</span>
+<span class="c1"># 绘制700hPa等压面上的风矢量图</span>
+<span class="c1"># 后面三个参数非必要不用管</span>
+<span class="n">quiver</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span>
+    <span class="n">lon</span><span class="p">,</span>  <span class="c1"># x轴是经度</span>
+    <span class="n">lat</span><span class="p">,</span>  <span class="c1"># y轴是纬度</span>
+    <span class="n">u</span><span class="p">,</span>  <span class="c1"># 矢量场U分量</span>
+    <span class="n">v</span><span class="p">,</span>  <span class="c1"># 矢量场V分量</span>
+    <span class="n">pivot</span><span class="o">=</span><span class="s2">&quot;mid&quot;</span><span class="p">,</span>  <span class="c1"># 箭头旋转的基准点</span>
+    <span class="n">regrid_shape</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>  <span class="c1"># 矢量图的重采样形状</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>  <span class="c1"># 坐标变换</span>
+<span class="p">)</span>
+<span class="c1"># 添加参考矢量</span>
+<span class="c1"># labelpos的值包括“E”、“W”、“S”、“N”</span>
+<span class="c1"># 即东西南北</span>
+<span class="c1"># coordinates表示前面的位置坐标是相对整个figure还是当前axes</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">quiverkey</span><span class="p">(</span>
+    <span class="n">quiver</span><span class="p">,</span>  <span class="c1"># 绑定对应关系</span>
+    <span class="mf">0.925</span><span class="p">,</span>  <span class="c1"># 参考矢量位置的x坐标</span>
+    <span class="mf">0.125</span><span class="p">,</span>  <span class="c1"># 参考矢量位置的y坐标</span>
+    <span class="mi">10</span><span class="p">,</span>  <span class="c1"># 参考矢量对应的数值</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ 10 </span><span class="se">\\</span><span class="s2"> m </span><span class="se">\\</span><span class="s2"> s^{-1} }$&quot;</span><span class="p">,</span>  <span class="c1"># 标签文本</span>
+    <span class="n">labelpos</span><span class="o">=</span><span class="s2">&quot;S&quot;</span><span class="p">,</span>  <span class="c1"># 标签位置</span>
+    <span class="n">coordinates</span><span class="o">=</span><span class="s2">&quot;figure&quot;</span><span class="p">,</span>  <span class="c1"># 坐标系统</span>
+    <span class="n">fontproperties</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">},</span>  <span class="c1"># 字号</span>
+<span class="p">)</span>
+
+<span class="c1"># ==添加图题==</span>
+<span class="c1"># 参数含义与之前的ax.text()基本一致</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+    <span class="p">(</span>
+        <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Precipitation </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( mm </span><span class="se">\\</span><span class="s2">right) }$&quot;</span>
+        <span class="s2">&quot; &amp; &quot;</span>
+        <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Wind_{700 </span><span class="se">\\</span><span class="s2"> hPa} </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( m </span><span class="se">\\</span><span class="s2"> s^{-1} </span><span class="se">\\</span><span class="s2">right) }$&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">(</span><span class="si">{</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">rain</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="p">),</span>
+    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># ==展示图像==</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f7cd12ae664b143ba26d31b87cdcdb1cb8f1d3fba80dc35d61e735a04db4ccdb.png" src="../../_images/f7cd12ae664b143ba26d31b87cdcdb1cb8f1d3fba80dc35d61e735a04db4ccdb.png" />
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>填色等值线图<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>这里其实可以看到使用<code class="docutils literal notranslate"><span class="pre">subfigure</span></code>的另一个好处。<br />
+即在每个<code class="docutils literal notranslate"><span class="pre">subfigure</span></code>都需要添加<code class="docutils literal notranslate"><span class="pre">colorbar</span></code>的时候，可以在不同<code class="docutils literal notranslate"><span class="pre">subfigure</span></code>内使用相同位置。<br />
+省去了重复调整位置的麻烦。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==创建画布、子画布、子图==</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">subfigs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subfigures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=-</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># ==在第一张子画布上绘制图像==</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># 创建1行1列的子图并设置投影</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">})</span>
+<span class="c1"># 添加省界线</span>
+<span class="n">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="c1"># 绘制地面累计降水的填色等值线图</span>
+<span class="c1"># 这里contourf中的f代表fill即填充颜色</span>
+<span class="c1"># 对应有contour即不填充颜色的等值线图</span>
+<span class="c1"># 参数与pcolormesh基本一致</span>
+<span class="c1"># 多出来的extend=&quot;both&quot;代表colorbar的两端显示为尖头</span>
+<span class="n">ctf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span>
+    <span class="n">lon</span><span class="p">,</span>
+    <span class="n">lat</span><span class="p">,</span>
+    <span class="n">rain</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">cmaps</span><span class="o">.</span><span class="n">WhiteBlueGreenYellowRed</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">80</span><span class="p">),</span>
+    <span class="n">extend</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="c1"># 添加colorbar</span>
+<span class="c1"># 与前面相比唯一的区别在于添加到了subfig</span>
+<span class="c1"># 位置中的各项参数也是相对于subfig进行设置的</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">ctf</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">subfig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.815</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]),</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Precipitation </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( mm </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># 添加文本</span>
+<span class="c1"># 文本内容是根据提取出的变量元数据中的时刻</span>
+<span class="c1"># 将其转换成datetime类型，再格式化为字符串所得到的</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="mf">0.155</span><span class="p">,</span>
+    <span class="mf">0.925</span><span class="p">,</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">rain</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="se">\n</span><span class="s2">%H:%M:%S&quot;</span><span class="p">),</span>
+    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;lw&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># ==在第二张子画布上绘制图像==</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># 设置子画布的背景颜色为None</span>
+<span class="c1"># 防止默认的白色盖住其他子画布或其他元素</span>
+<span class="c1"># 比如参考矢量或colorbar</span>
+<span class="n">subfig</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+<span class="c1"># 创建1行1列的子图并设置投影</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">})</span>
+<span class="c1"># 添加省界线时设置子图左侧不显示刻度标签</span>
+<span class="n">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># 这里自定义的colormap来自：</span>
+<span class="c1"># http://nmc.cn/publish/area/china/radar.html</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;#FFFFFF&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#01A0F6&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#00ECEC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#00D800&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#019000&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#FFFF00&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#E7C000&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#FF9000&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#FF0000&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#D60000&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#C00000&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#FF00F0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#9600B4&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;#AD90F0&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="c1"># 规定刻度</span>
+<span class="c1"># levels也可以是不等距的、只包含数字的列表</span>
+<span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="c1"># 将自定义的colormap与levels传入所绘制的填色等值线图内</span>
+<span class="n">ctf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span>
+    <span class="n">lon</span><span class="p">,</span>
+    <span class="n">lat</span><span class="p">,</span>
+    <span class="n">dbz</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+    <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">BoundaryNorm</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="c1"># 添加colorbar</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">ctf</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">subfig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.815</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]),</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="n">levels</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Reflectivity_{700 </span><span class="se">\\</span><span class="s2"> hPa} </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( dBz </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># ==展示图像==</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f074a248dd6738eaba808dd849f6c0a162a721119f95b45abd524969e3cc0117.png" src="../../_images/f074a248dd6738eaba808dd849f6c0a162a721119f95b45abd524969e3cc0117.png" />
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>伪彩色图+矢量图+剖面图<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==创建画布、子画布、子图==</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">subfigs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subfigures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=-</span><span class="mf">0.15</span><span class="p">)</span>
+
+<span class="c1"># ==在第一张子画布上绘制图像==</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">})</span>
+<span class="n">ax2ax</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="c1"># 绘制700hPa等压面上云水混合比的伪彩色图</span>
+<span class="n">pcm</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+    <span class="n">lon</span><span class="p">,</span>
+    <span class="n">lat</span><span class="p">,</span>
+    <span class="n">qc</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">cmaps</span><span class="o">.</span><span class="n">WhiteBlueGreenYellowRed</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.25</span><span class="p">),</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="c1"># 绘制剖面</span>
+<span class="c1"># 即画一条连接起止点的直线</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">start</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">end</span><span class="o">.</span><span class="n">lon</span><span class="p">],</span>
+    <span class="p">[</span><span class="n">start</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">end</span><span class="o">.</span><span class="n">lat</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="c1"># 绘制700hPa等压面上的风矢量图</span>
+<span class="n">quiver</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span>
+    <span class="n">lon</span><span class="p">,</span>
+    <span class="n">lat</span><span class="p">,</span>
+    <span class="n">u</span><span class="p">,</span>
+    <span class="n">v</span><span class="p">,</span>
+    <span class="n">pivot</span><span class="o">=</span><span class="s2">&quot;mid&quot;</span><span class="p">,</span>
+    <span class="n">regrid_shape</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="c1"># 添加参考矢量</span>
+<span class="c1"># 考虑到多了一张子图因此位置有所调整</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">quiverkey</span><span class="p">(</span>
+    <span class="n">quiver</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mf">0.15</span><span class="p">,</span>
+    <span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ 10 </span><span class="se">\\</span><span class="s2"> m </span><span class="se">\\</span><span class="s2"> s^{-1} }$&quot;</span><span class="p">,</span>
+    <span class="n">labelpos</span><span class="o">=</span><span class="s2">&quot;S&quot;</span><span class="p">,</span>
+    <span class="n">coordinates</span><span class="o">=</span><span class="s2">&quot;figure&quot;</span><span class="p">,</span>
+    <span class="n">fontproperties</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="c1"># 添加文本</span>
+<span class="c1"># 文本下方还有其他矢量</span>
+<span class="c1"># 因此为了防止互相混在一起将不透明度设为了1</span>
+<span class="c1"># 即完全不透明</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="mf">0.155</span><span class="p">,</span>
+    <span class="mf">0.895</span><span class="p">,</span>
+    <span class="p">(</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="se">\n</span><span class="s2">%H:%M:%S&quot;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">$</span><span class="se">\\</span><span class="s2">mathrm{{ </span><span class="se">\\</span><span class="s2">left( 700 </span><span class="se">\\</span><span class="s2"> hPa </span><span class="se">\\</span><span class="s2">right) }}$&quot;</span>
+    <span class="p">),</span>
+    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;facecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;lw&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># ==在第二张子画布上绘制图像==</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">subfig</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># 提取纬度坐标</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">coord</span><span class="o">.</span><span class="n">lat</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">qc_cross</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;xy_loc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
+<span class="c1"># 提取海拔高度坐标</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">qc_cross</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;vertical&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="c1"># 绘制云水混合比的剖面图</span>
+<span class="c1"># 其中x轴是纬度、y轴是海拔高度</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">,</span>
+    <span class="n">qc_cross</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">cmaps</span><span class="o">.</span><span class="n">WhiteBlueGreenYellowRed</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.25</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="c1"># 绘制地面高度的剖面图</span>
+<span class="c1"># x轴是纬度</span>
+<span class="c1"># y轴方向上：在0与地面高度之间进行填充</span>
+<span class="c1"># 同时设置所填充的边缘颜色为黑色、内部颜色为白色、填充样式为&quot;///&quot;</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="n">ter_cross</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="n">hatch</span><span class="o">=</span><span class="s2">&quot;///&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># 添加网格线</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="c1"># 设置x轴、y轴的范围</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">end</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20000</span><span class="p">)</span>
+<span class="c1"># 设置y轴的标签</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Height </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( m </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># 设置x轴刻度样式为“纬度”</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">LatitudeFormatter</span><span class="p">())</span>
+<span class="c1"># 设置刻度字号</span>
+<span class="c1"># 不显示底部与左侧的刻度线</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># 添加colorbar</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">pcm</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">subfig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.925</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">]),</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathrm{ Qc </span><span class="se">\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">left( g </span><span class="se">\\</span><span class="s2"> kg^{{-1}} </span><span class="se">\\</span><span class="s2">right) }$&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># ==展示图像==</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4ea4423fff1262e37bc7390542528d967ac13e6ec08ef428e3e833899c1050d3.png" src="../../_images/4ea4423fff1262e37bc7390542528d967ac13e6ec08ef428e3e833899c1050d3.png" />
+</div>
+</div>
+<p>图像的地面高度不太明显，因此额外展示了之前所画过的其他地面高度剖面图的效果。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 这是正常绘图所不需要的模块</span>
+<span class="c1"># 因此将其拎出来单独导入</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">Image</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/public/home/XiaAnRen/share/tutorial2024/plt6.png&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4eb436b301cd668de1119bcc57e26d2920511ce6d8da9dda7a093cca198465a9.png" src="../../_images/4eb436b301cd668de1119bcc57e26d2920511ce6d8da9dda7a093cca198465a9.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="plt01_basic.html" class="btn btn-neutral float-left" title="绘图流程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../LaTeX/index.html" class="btn btn-neutral float-right" title="\(\LaTeX\)" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, XiaAnren。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

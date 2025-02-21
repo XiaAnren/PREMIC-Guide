@@ -56,6 +56,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../main/index.html">基本概述</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Matplotlib</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="plt01_basic.html">绘图流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plt03_nc.html">wrfout绘图</a></li>
 </ul>
 </li>
 </ul>
@@ -92,9 +93,9 @@
   <section class="tex2jax_ignore mathjax_ignore" id="matplotlib">
 <h1>Matplotlib<a class="headerlink" href="#matplotlib" title="Link to this heading"></a></h1>
 <p>最好的学习资料永远是<a class="reference external" href="https://matplotlib.org/stable/users/index.html">官方文档</a>。</p>
-<p>包括<a class="reference external" href="https://matplotlib.org/stable/users/explain/quick_start.html">快速上手</a>、<a class="reference external" href="https://matplotlib.org/stable/plot_types/index.html">图表类型</a>、<a class="reference external" href="https://matplotlib.org/stable/users/explain/axes/legend_guide.html">图例教程</a>、<a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">内置colormap</a>（还有NCL的<a class="reference external" href="https://www.ncl.ucar.edu/Document/Graphics/color_table_gallery.shtml">内置colormap</a>，可以导入<code class="docutils literal notranslate"><span class="pre">cmaps</span></code>以使用）、<a class="reference external" href="https://matplotlib.org/stable/users/explain/animations/animations.html">动图教程</a>等等。</p>
+<p>其中包括<a class="reference external" href="https://matplotlib.org/stable/users/explain/quick_start.html">快速上手</a>、<a class="reference external" href="https://matplotlib.org/stable/plot_types/index.html">图表类型</a>、<a class="reference external" href="https://matplotlib.org/stable/users/explain/axes/legend_guide.html">图例教程</a>、<a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">内置colormap</a>（还有NCL的<a class="reference external" href="https://www.ncl.ucar.edu/Document/Graphics/color_table_gallery.shtml">内置colormap</a>，可以导入<code class="docutils literal notranslate"><span class="pre">cmaps</span></code>以使用）、<a class="reference external" href="https://matplotlib.org/stable/users/explain/animations/animations.html">动图教程</a>等等。</p>
 <p>更多的请留待自行探索，当然也非常推荐借助AI等工具来辅助学习。</p>
-<p>相比于“教程”，这里更偏“工具箱”属性。</p>
+<p>相比于“教程”，本文档（不是官方文档）更偏“工具箱”属性。</p>
 <p>即在绘图时有哪些功能需要使用可以直接从这里拿取。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -102,6 +103,8 @@
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">plt01_basic.ipynb</span></code>：总体绘图流程，包括单张子图、多张子图、多张子画布</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plt02_xy.ipynb</span></code>：（暂未添加进来，预计是一些常用的图表类型，包括散点图、密度散点图等）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plt03_nc.ipynb</span></code>：wrfout后处理绘图，包括伪彩色图、填色等值线图、矢量图、剖面图</p></li>
 </ul>
 <div class="toctree-wrapper compound">
 <ul>
@@ -110,6 +113,14 @@
 <li class="toctree-l2"><a class="reference internal" href="plt01_basic.html#id3">单张子图</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plt01_basic.html#id4">多张子图</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plt01_basic.html#id5">多个子画布</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plt03_nc.html">wrfout绘图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plt03_nc.html#id1">数据处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plt03_nc.html#id2">添加省界线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plt03_nc.html#id3">伪彩色图+矢量图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plt03_nc.html#id4">填色等值线图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plt03_nc.html#id5">伪彩色图+矢量图+剖面图</a></li>
 </ul>
 </li>
 </ul>

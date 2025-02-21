@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>常见的XY类型图 &mdash; PREMIC Guide  文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/main.css?v=5ef77c96" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=7d86a446"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="wrfout绘图" href="plt03_nc.html" />
+    <link rel="prev" title="绘图流程" href="plt01_basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PREMIC Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Basic/index.html">基本指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Article.html">文献查找与下载</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../PEP8.html">编程规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../main/index.html">基本概述</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Matplotlib</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plt01_basic.html">绘图流程</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">常见的XY类型图</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">散点图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">密度散点图</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plt03_nc.html">wrfout绘图</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../LaTeX/index.html"><span class="math notranslate nohighlight">\(\LaTeX\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../How.html">这个文档是怎么做的</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PREMIC Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Python</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Matplotlib</a></li>
+      <li class="breadcrumb-item active">常见的XY类型图</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/Python/Matplotlib/plt02_xy.ipynb.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="xy">
+<h1>常见的XY类型图<a class="headerlink" href="#xy" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>作为前一文档的小拓展，这里是其他一些较为常见的XY类型图。</p></li>
+<li><p>即<a class="reference external" href="https://matplotlib.org/stable/users/index.html">官方文档</a>中<a class="reference external" href="https://matplotlib.org/stable/plot_types/index.html">图表类型</a>的“Pairwise data”部分。</p></li>
+<li><p>目前本文档包括：散点图、密度散点图。</p></li>
+<li><p>折线图在前一文档中有所提及，因此此处没有进行展示。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_scatter_density</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScatterDensityAxes</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h2>散点图<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>散点图至少包含了一组点的x轴坐标、y轴坐标，即<span class="math notranslate nohighlight">\(\left( X, Y \right)\)</span>。</p></li>
+<li><p>在此基础上可以添加一维或两维数据。</p></li>
+<li><p>所添加的数据可以对应各个点的大小或颜色，即<span class="math notranslate nohighlight">\(\left( X, Y, S, C \right)\)</span>。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==创建示例数据==</span>
+<span class="c1"># 创建两个表示网格坐标的二维数组</span>
+<span class="c1"># x轴、y轴方向上的范围都是从-9到9，共19个点，即各个点之间的间隔为1</span>
+<span class="c1"># 最后得到19x19的网格点</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">9</span><span class="p">:</span><span class="mi">9</span><span class="p">:</span><span class="mi">19</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">9</span><span class="p">:</span><span class="mi">9</span><span class="p">:</span><span class="mi">19</span><span class="n">j</span><span class="p">]</span>
+<span class="c1"># 绘图时19x19的每个格点都将按照此变量的值进行上色</span>
+<span class="c1"># 即各个格点的x轴、y轴坐标值之和</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="c1"># ==创建画布与子图==</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># ==绘制散点图==</span>
+<span class="c1"># 这里的散点大小被固定成了10</span>
+<span class="c1"># 但其实也可以像颜色那样设置成一个变量</span>
+<span class="c1"># 这样散点的大小就会像最后图像里的颜色那样</span>
+<span class="c1"># 随着给定的变量对应发生变化</span>
+<span class="n">scat</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>  <span class="c1"># x轴坐标</span>
+    <span class="n">y</span><span class="p">,</span>  <span class="c1"># y轴坐标</span>
+    <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># 按照该变量的值调整大小</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>  <span class="c1"># 按照该变量的值进行上色</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;bwr&quot;</span><span class="p">,</span>  <span class="c1"># 选用colormap</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>  <span class="c1"># 规定colorbar的最大最小值</span>
+<span class="p">)</span>
+<span class="c1"># “老三样”</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># 调整一下y轴刻度</span>
+<span class="c1"># 否则得到的y轴刻度间隔是2.5</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1"># 设置x轴、y轴范围</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># ==添加colorbar==</span>
+<span class="c1"># 具体的一些参数说明请见下一文档</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">scat</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.925</span><span class="p">,</span> <span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]),</span>
+<span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># ==展示图像==</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/44bea6d555371dbba1bc4ee923ca93aab76150457351e9f6b90cdc29aca40812.png" src="../../_images/44bea6d555371dbba1bc4ee923ca93aab76150457351e9f6b90cdc29aca40812.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>其他使用例：</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 这是正常绘图所不需要的模块</span>
+<span class="c1"># 因此将其拎出来单独导入</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">Image</span><span class="p">(</span><span class="s2">&quot;/public/home/XiaAnRen/data3/vscode/python_3.11/misc/test/test_scatter.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/6fe315ce5e51bf616145917469b97a566061266ee2b5dcf8cbacc5426fa6e8a2.png" src="../../_images/6fe315ce5e51bf616145917469b97a566061266ee2b5dcf8cbacc5426fa6e8a2.png" />
+</div>
+</div>
+</section>
+<section id="id2">
+<h2>密度散点图<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>密度散点图只需要包含一组点的x轴坐标、y轴坐标，即<span class="math notranslate nohighlight">\(\left( X, Y \right)\)</span>。</p></li>
+<li><p>相比普通散点图，这里点的数目通常足够大，因此可以通过颜色的变化来展示密集程度。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==创建示例数据==</span>
+<span class="c1"># 设置随机数生成器的种子为100</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># 使用随机数生成器生成100000个服从均值为0，标准差为1的正态分布数据</span>
+<span class="c1"># 分别用于x轴坐标、y轴坐标</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+
+<span class="c1"># ==创建画布与子图==</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1"># 这里的ScatterDensityAxes是在标注变量类型（type hint）</span>
+<span class="c1"># 删掉也不影响程序的运行</span>
+<span class="c1"># 创建的子图必须设置投影方式为scatter_density</span>
+<span class="n">ax</span><span class="p">:</span> <span class="n">ScatterDensityAxes</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter_density&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># ==绘制密度散点图==</span>
+<span class="c1"># 密度散点图将按照点的密度进行上色</span>
+<span class="c1"># 因此这里colorbar上的值代表了每个像素内点的数目</span>
+<span class="n">dens</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter_density</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>  <span class="c1"># x轴坐标</span>
+    <span class="n">y</span><span class="p">,</span>  <span class="c1"># y轴坐标</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">,</span>  <span class="c1"># 选用colormap</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>  <span class="c1"># 规定colorbar的最大最小值</span>
+<span class="p">)</span>
+<span class="c1"># “老三样”</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># 设置x轴、y轴范围</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># ==添加colorbar==</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">dens</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.925</span><span class="p">,</span> <span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]),</span>
+<span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># ==展示图像==</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/18a280b0e2b21b96b8a62320749c814b8b95e6d6d8efc11108b76f157ba1a054.png" src="../../_images/18a280b0e2b21b96b8a62320749c814b8b95e6d6d8efc11108b76f157ba1a054.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>其他使用例：</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;/public/home/XiaAnRen/data3/vscode/python_3.11/misc/test/test_density.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/aed66b66f2c7fca737760d9060ebe49e243827c0930e87e310bb5175239f6e60.png" src="../../_images/aed66b66f2c7fca737760d9060ebe49e243827c0930e87e310bb5175239f6e60.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="plt01_basic.html" class="btn btn-neutral float-left" title="绘图流程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="plt03_nc.html" class="btn btn-neutral float-right" title="wrfout绘图" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, XiaAnren。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

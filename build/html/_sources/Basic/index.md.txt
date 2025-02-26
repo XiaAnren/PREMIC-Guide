@@ -6,8 +6,9 @@
 ---
 maxdepth: 2
 ---
-01_HPC
-02_Xshell
-03_VSCode
-04_Python
+01_Guide
+02_HPC
+03_Xshell
+04_VSCode
+05_Python
 ```
